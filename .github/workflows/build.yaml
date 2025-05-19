@@ -14,10 +14,8 @@ jobs:
       # Checkout the repo
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Run server
-        run: python3 -m http.server 8000 &
       - name: Build ReSpec file
-        run: npx respec http://localhost:8000/base.html public/index.html --disable-sandbox
+        run:   npx respec --localhost --src index.html --out public/index.html
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
