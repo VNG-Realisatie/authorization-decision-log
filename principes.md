@@ -1,11 +1,9 @@
-
 # Principes
 
+## Conformance levels
+  - Opslaan in AuthZEN formaat is minimum
+  - Verschillende conformance levels mogelijk voor bijv. BRP bevraging
 
-
-## Definities
-
-## Context
-
-
-## Componenten
+##  
+Verantwoording door 'replayability' als ideaal
+- 

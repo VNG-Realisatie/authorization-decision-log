@@ -14,7 +14,7 @@ let respecConfig = {
   title: "Standaard voor Logboek Toegangsbeslissingen",
   content: {
     "introductie": "introductie",
-    "decision-log": "decision-log",
+    "informatiemodel": "informatiemodel",
     "inzicht-api": "inzicht-api"
   },
   editors:
