@@ -14,10 +14,11 @@ jobs:
       # Checkout the repo
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Run Server
-        run:  python3 -m http.server 8000 &
       - name: Build ReSpec file
-        run: npx respec --localhost --src index.html --out public/index.html
+        run: |
+          python3 -m http.server 8000 &
+          sleep 5
+          npx respec --localhost --src index.html --out public/index.html
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
