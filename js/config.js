@@ -12,7 +12,11 @@ let respecConfig = {
   previousPublishDate: null,
   previousMaturity: "WV",
   title: "Standaard voor Logboek Toegangsbeslissingen",
-  content: {"introductie": "introductie", "architectuur": "architectuur"},
+  content: {
+    "introductie": "introductie",
+    "decision-log": "decision-log",
+    "inzicht-api": "inzicht-api"
+  },
   editors:
     [
       // {

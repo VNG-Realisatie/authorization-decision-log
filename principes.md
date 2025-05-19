@@ -1,5 +1,5 @@
 
-# Architectuur
+# Principes
 
 
 
