@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@v4
       - name: Build ReSpec file
         run: |
-          python3 -m http.server 8000 &
+          python3 -m http.server 3000 &
           sleep 5
           npx respec --localhost --src index.html --out public/index.html
       - name: Upload artifact
