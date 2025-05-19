@@ -17,8 +17,9 @@ jobs:
       - name: Build ReSpec file
         run: |
           python3 -m http.server 8000 &
+          mkdir public
           sleep 5
-           npx respec http://localhost:8000/base.html public/index.html --disable-sandbox
+          npx respec http://localhost:8000/base.html public/index.html --disable-sandbox
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
