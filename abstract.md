@@ -1,6 +1,6 @@
-Dit document bevat een standaard voor het logboek toegangsbeslissingen. 
+This document contains a standard for the decision log.
 
-Onder toegangsverlening wordt verstaan het beslissen tot het geheel of gedeeltelijk toestaan van verzoeken tot gegevensverwerking. 
+Authorization is understood to mean the decision to fully or partially allow requests for data processing.
 
-<p class="note" title="Relatie tot identificatie en authenticatie">
-In de context van deze standaard gebeurt toegangsverlening op basis van een reeds vastgesteld subject. Voor identificatie en authenticatie kan verwezen worden naar o.a. [[FSC - Core]], [[OpenID NLGov]] en [[SAML]].</p>
+<p class="note" title="Relation to identification and authentication"> 
+In the context of this standard, authorization is based on an already established subject. For identification and authentication, reference can be made to, among others, [[FSC - Core]], [[OpenID NLGov]], and [[SAML]].</p>
