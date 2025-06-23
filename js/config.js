@@ -15,7 +15,7 @@ let respecConfig = {
   content: {
     "introductie": "introductie",
     "architectuur": "architectuur",
-    "informatiemodel": "informatiemodel",
+    "specificaties": "specificaties",
     "inzicht-api": "inzicht-api",
     "volwassenheidsniveau": "volwassenheidsniveau"
   },
