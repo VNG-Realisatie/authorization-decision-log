@@ -1,6 +1,6 @@
 # Specifications
 
-## Protocollen
+## Protocols
 
 ## Component: Decision Log
 
