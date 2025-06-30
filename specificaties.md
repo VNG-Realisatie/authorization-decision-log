@@ -1,10 +1,10 @@
-# Specificaties
+# Specifications
 
 ## Protocollen
 
-## Component: Logboek
+## Component: Decision Log
 
-### Gedrag
+### Behaviour
 
 The Logbook **MUST** enforce TLS on connections, in accordance with the standard practice established within the organization.
 
@@ -14,7 +14,7 @@ The Logbook **MUST** confirm the successful persistence of each log entry.
 
 The interface **MUST** implement the following fields:
 
-| Veld           | Type      | optioneel | Omschrijving                                                   |
+| Field           | Type    | Required  | Description                                        |
 |----------------|-----------|-----------|----------------------------------------------------------------|
 | `trace_id`     | 16 byte   | required  | Unieke identificerende code van Trace die Dataverwerking volgt |
 | `span_id`      | 8 byte    | required  | Unieke identificerende code van Actie binnen de Dataverwerking |
@@ -27,17 +27,17 @@ The interface **MUST** implement the following fields:
 | `pdp`          | message   | optional  | Refer to the notes below                                 |
 
 ### Notes
-Het veld `request` is een `message` die de input voor de toegangsbeslissing representeert. Dit veld **MOET** in AuthZen 
-formaat zijn. Je **MAG** delen van het request weg laten vanwege privacy redenen. Wanneer deze delen weg worden gelaten is
-het niet meer mogelijk volledige verantwoording en replayability te hebben.
+The `request` field is a message that represents the input to the decision. This field **MUST** be in [[AuthZen]] format. Portions 
+of the request **MAY** be omitted for privacy reasons. However, if such parts are omitted, full accountability and 
+replayability can no longer be guaranteed.
 
-Het veld `response` is een `message` die de input voor de toegangsbeslissing representeert. Dit veld **MOET** in AuthZen
-formaat zijn. Je **MAG** delen van het request weg laten vanwege privacy redenen. Wanneer deze delen weg worden gelaten is
-het niet meer mogelijk volledige verantwoording en replayability te hebben.
+The `response` field is a message that represents the output of the decision. This field **MUST** be in [[AuthZen]] format. Portions
+of the request **MAY** be omitted for privacy reasons. However, if such parts are omitted, full accountability and
+replayability can no longer be guaranteed.
 
 The `policies` field is a message, composed of the following fields.
 
-| Field            | Type    | optioneel | Omschrijving                               |
+| Field           | Type    | Required  | Description                             |
 |------------------|---------|---------------|--------------------------------------------|
 | `policy_version` | message | required     | Object to uniquely identify a set policies |
 
@@ -49,11 +49,9 @@ Examples include:
 - Unique identifier
 - Git hash
 
-
-
 The `information` field is a message.
 
-| Veld       | Type      | optioneel | Omschrijving                                               |
+| Field           | Type    | Required  | Description                                            |
 |------------|-----------|-----------|------------------------------------------------------------|
 | `trace_id` | 16 byte   | optional  | The trace_id of the PDP request                            |
 | `span_id`  | 8 byte    | optional | The span_id of the PDP request                             | |
@@ -66,7 +64,7 @@ The `timestamp` is the timestamp of the request if the `information`.
 
 The `pdp` field is a message.
 
-| Veld            | Type    | optioneel | Omschrijving                         |
+| Field           | Type    | Required  | Description                          |
 |-----------------|---------|-----------|--------------------------------------|
 | `version`       | message | optioneel | Version identification of the PDP    |
 | `hostname`      | message | optioneel | Hostname of the PDP                  |
