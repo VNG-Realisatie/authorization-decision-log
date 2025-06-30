@@ -35,7 +35,8 @@ The `response` field is a message that represents the output of the decision. Th
 of the request **MAY** be omitted for privacy reasons. However, if such parts are omitted, full accountability and
 replayability can no longer be guaranteed.
 
-The `policies` field is a message, composed of the following fields.
+The `policies` field is a message in which each key identifies a policy source. The value associated with each key **MUST** 
+be a message in the following format.
 
 | Field           | Type    | Required  | Description                             |
 |------------------|---------|---------------|--------------------------------------------|
@@ -49,7 +50,8 @@ Examples include:
 - Unique identifier
 - Git hash
 
-The `information` field is a message.
+The `policies` field is a message in which each key identifies an information source. The value associated with each key **MUST**
+be a message in the following format.
 
 | Field           | Type    | Required  | Description                                            |
 |------------|-----------|-----------|------------------------------------------------------------|
