@@ -6,13 +6,13 @@
 
 ### Gedrag
 
-Het Logboek ***MOET*** TLS afdwingen op connecties volgens de binnen de organisatie gangbare standaard.
+The Logbook **MUST** enforce TLS on connections, in accordance with the standard practice established within the organization.
 
-Het Logboek ***MOET*** het wegschrijven van elke logregel bevestigen.
+The Logbook **MUST** confirm the successful persistence of each log entry.
 
 ## Interface
 
-De interface ***MOET*** de volgende velden implementeren:
+The interface **MUST** implement the following fields:
 
 | Veld        | Type    | optioneel | Omschrijving                                                   |
 |-------------|---------|---------------|----------------------------------------------------------------|
