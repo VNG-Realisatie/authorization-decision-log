@@ -14,17 +14,19 @@ The Logbook **MUST** confirm the successful persistence of each log entry.
 
 The interface **MUST** implement the following fields:
 
-| Veld        | Type    | optioneel | Omschrijving                                                   |
-|-------------|---------|---------------|----------------------------------------------------------------|
-| `trace_id`  | 16 byte | verplicht     | Unieke identificerende code van Trace die Dataverwerking volgt |
-| `span_id`   | 8 byte  | verplicht     | Unieke identificerende code van Actie binnen de Dataverwerking |
-| `timestamp` | timestamp   | verplicht     | Unique identifier that refers to an exact instance in time     |
-| `request`   | message | verplicht     | Input for the decision in [[AuthZen]] format                   |
-| `response`  | message | verplicht     | Output for the decision in [[AuthZen]] format                  |
-| `pap`       | message | verplicht     | Zie toelichting                                                |
-| `pip`       | message | verplicht     | Zie toelichting                                                |
-| `pdp`       | message | verplicht     | Zie toelichting                                                |
+| Veld           | Type      | optioneel | Omschrijving                                                   |
+|----------------|-----------|-----------|----------------------------------------------------------------|
+| `trace_id`     | 16 byte   | required  | Unieke identificerende code van Trace die Dataverwerking volgt |
+| `span_id`      | 8 byte    | required | Unieke identificerende code van Actie binnen de Dataverwerking |
+| `timestamp`    | timestamp | required | Unique identifier that refers to an exact instance in time     |
+| `request`      | message   | required | Input for the decision in [[AuthZen]] format                   |
+| `request_type` | string    | required | Type of the request as defined in the [[AuthZen]] standard     |
+| `response`     | message   | required | Output for the decision in [[AuthZen]] format                  |
+| `policies`     | message   | required | Refer to the notes below                                       |
+| `pip`          | message   | required | Refer to the notes below                                 |
+| `pdp`          | message   | required | Refer to the notes below                                 |
 
+### Notes
 Het veld `request` is een `message` die de input voor de toegangsbeslissing representeert. Dit veld **MOET** in AuthZen 
 formaat zijn. Je **MAG** delen van het request weg laten vanwege privacy redenen. Wanneer deze delen weg worden gelaten is
 het niet meer mogelijk volledige verantwoording en replayability te hebben.
@@ -33,20 +35,21 @@ Het veld `response` is een `message` die de input voor de toegangsbeslissing rep
 formaat zijn. Je **MAG** delen van het request weg laten vanwege privacy redenen. Wanneer deze delen weg worden gelaten is
 het niet meer mogelijk volledige verantwoording en replayability te hebben.
 
-Het veld `PAP` is een `message`, opgebouwd uit de volgende velden.
+The `PAP` field is a message, composed of the following fields.
 
-| Veld             | Type    | optioneel | Omschrijving                         |
-|------------------|---------|---------------|--------------------------------------|
-| `policy_version` | message | verplicht     | Versie identificatie van de policies |
+| Veld             | Type    | optioneel | Omschrijving                               |
+|------------------|---------|---------------|--------------------------------------------|
+| `policy_version` | message | required     | Object to uniquely identify a set policies |
 
-Het veld `policy_version` is een message die verwijst naar een unieke versie van de policy. De informatie in dit veld **MOET** genoeg
-zijn om een specifieke policy terug te halen die gebruikt is in de toegangsbeslissing.
+The `policy_version` field is a message that refers to a unique version of the policy. The information in this field **MUST** 
+be sufficient to retrieve the specific policy or policy set that was used in the access decision.
 
-Voorbeelden daarvan zijn:
+Examples include:
 - Timestamp
-- Unieke identifier
+- Unique identifier
+- Git hash
 
-Het veld `PIP` is een `message`. 
+The `PAP` field is a message.
 
 | Veld       | Type    | optioneel | Omschrijving                                                   |
 |------------|---------|-----------|----------------------------------------------------------------|
