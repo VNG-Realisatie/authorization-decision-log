@@ -1,72 +1,78 @@
-# Specificaties
+# Specifications
 
-## Protocollen
+## Protocols
 
-## Component: Logboek
+## Component: Decision Log
 
-### Gedrag
+### Behaviour
 
-Het Logboek ***MOET*** TLS afdwingen op connecties volgens de binnen de organisatie gangbare standaard.
+The Logbook **MUST** enforce TLS on connections, in accordance with the standard practice established within the organization.
 
-Het Logboek ***MOET*** het wegschrijven van elke logregel bevestigen.
+The Logbook **MUST** confirm the successful persistence of each log entry.
 
 ## Interface
 
-De interface ***MOET*** de volgende velden implementeren:
+The interface **MUST** implement the following fields:
 
-| Veld        | Type    | optioneel | Omschrijving                                                   |
-|-------------|---------|---------------|----------------------------------------------------------------|
-| `trace_id`  | 16 byte | verplicht     | Unieke identificerende code van Trace die Dataverwerking volgt |
-| `span_id`   | 8 byte  | verplicht     | Unieke identificerende code van Actie binnen de Dataverwerking |
-| `timestamp` | timestamp (ms)  | verplicht     | Unieke identificerende code van Actie binnen de Dataverwerking |
-| `request`   | message | verplicht     | Input voor de toegangsbeslissing in AuthZen formaat            |
-| `response`  | message | verplicht     | Output voor de toegangsbeslissing in AuthZen formaat           |
-| `pap`       | message | verplicht     | Zie toelichting                                                |
-| `pip`       | message | verplicht     | Zie toelichting           |
-| `pdp`       | message | verplicht     | Zie toelichting          |
+| Field           | Type    | Required  | Description                                        |
+|----------------|-----------|-----------|----------------------------------------------------------------|
+| `trace_id`     | 16 byte   | required  | Unieke identificerende code van Trace die Dataverwerking volgt |
+| `span_id`      | 8 byte    | required  | Unieke identificerende code van Actie binnen de Dataverwerking |
+| `timestamp`    | timestamp | required  | Unique identifier that refers to an exact instance in time     |
+| `request`      | message   | required  | Input for the decision in [[AuthZen]] format                   |
+| `request_type` | string    | required  | Type of the request as defined in the [[AuthZen]] standard     |
+| `response`     | message   | required  | Output for the decision in [[AuthZen]] format                  |
+| `policies`     | message   | required  | Refer to the notes below                                       |
+| `information`  | message   | optional  | Refer to the notes below                                 |
+| `pdp`          | message   | optional  | Refer to the notes below                                 |
 
-Het veld `request` is een `message` die de input voor de toegangsbeslissing representeert. Dit veld **MOET** in AuthZen 
-formaat zijn.
+### Notes
+The `request` field is a message that represents the input to the decision. This field **MUST** be in [[AuthZen]] format. Portions 
+of the request **MAY** be omitted for privacy reasons. However, if such parts are omitted, full accountability and 
+replayability can no longer be guaranteed.
 
-Het veld `response` is een `message` die de input voor de toegangsbeslissing representeert. Dit veld **MOET** in AuthZen
-formaat zijn.
+The `response` field is a message that represents the output of the decision. This field **MUST** be in [[AuthZen]] format. Portions
+of the request **MAY** be omitted for privacy reasons. However, if such parts are omitted, full accountability and
+replayability can no longer be guaranteed.
 
-Het veld `PAP` is een `message`, opgebouwd uit de volgende velden.
+The `policies` field is a message, composed of the following fields.
 
-| Veld             | Type    | optioneel | Omschrijving                         |
-|------------------|---------|---------------|--------------------------------------|
-| `policy_version` | message | verplicht     | Versie identificatie van de policies |
+| Field           | Type    | Required  | Description                             |
+|------------------|---------|---------------|--------------------------------------------|
+| `policy_version` | message | required     | Object to uniquely identify a set policies |
 
-Het veld `policy_version` is een message die verwijst naar een unieke versie van de policy. De informatie in dit veld **MOET** genoeg
-zijn om een specifieke policy terug te halen die gebruikt is in de toegangsbeslissing.
+The `policy_version` field is a message that refers to a unique version of the policy. The information in this field **MUST** 
+be sufficient to retrieve the specific policy or policy set that was used in the access decision.
 
-Voorbeelden daarvan zijn:
+Examples include:
 - Timestamp
-- Unieke identifier
+- Unique identifier
+- Git hash
 
-Het veld `PIP` is een `message`. 
+The `information` field is a message.
 
-| Veld       | Type    | optioneel | Omschrijving                                                   |
-|------------|---------|-----------|----------------------------------------------------------------|
-| `trace_id` | 16 byte | verplicht | Versie identificatie van de policies                           |
-| `span_id`  | 8 byte  | verplicht | Unieke identificerende code van Actie binnen de Dataverwerking |
-| `context`  | message | optioneel | Data van de PIP in WARC formaat                                |
-| `timestamp` | timestamp (ms)  | verplicht     | Unieke identificerende code van Actie binnen de Dataverwerking |
+| Field           | Type    | Required  | Description                                            |
+|------------|-----------|-----------|------------------------------------------------------------|
+| `trace_id` | 16 byte   | optional  | The trace_id of the PDP request                            |
+| `span_id`  | 8 byte    | optional | The span_id of the PDP request                             | |
+| `timestamp` | timestamp | optional | Unique identifier that refers to an exact instance in time | |
+| `context`  | message   | optional | Data of the PIP request                                    | |
 
-Beschrijf hier de verschillende strategieen:
-- Alles dupliceren wanneer er geen gevoelige data aanwezig
-  - Twee soorten data:
-    - Gerepliceerde data: Gebruik exacte versies (bijv. versie op de PIP).
-    - Live opgehaalde data: Voeg trace ID toe.
+The `information` **MUST** contain a `trace_id` and `span_id` or a `timestamp` or `data` field.
 
-Het veld `PDP` is een `message`.
+The `timestamp` is the timestamp of the request.
 
-| Veld            | Type    | optioneel | Omschrijving                         |
+The `pdp` field is a message.
+
+| Field           | Type    | Required  | Description                          |
 |-----------------|---------|-----------|--------------------------------------|
-| `policies`      | message | verplicht | Versie identificatie van de policies |
-| `configuration` | message | optioneel | Configuratie informatie voor de PDP  |
+| `version`       | message | optioneel | Version identification of the PDP    |
+| `hostname`      | message | optioneel | Hostname of the PDP                  |
+| `configuration` | message | optioneel | Configuration information of the PDP |
 
-Het veld `policy_version` is een message die de configuratie van de PDP beschrijft. Voorbeelden hiervan zijn:
-
+The `configuration` field is a message that describes the configuration of the PDP. Examples include:
 - Policy engine
-- Versie van de policy engine
+- Version of the policy engine
+
+Implementations **MAY** include additional fields in the message. Such fields **MUST NOT** alter the semantics of the 
+defined fields and **SHOULD** be ignored by recipients that do not recognize them.

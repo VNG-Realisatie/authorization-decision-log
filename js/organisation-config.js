@@ -108,6 +108,11 @@ var organisationConfig = {
     },
 
     localBiblio: {
+        "AuthZen": {
+            href: "https://openid.net/specs/authorization-api-1_0-01.html",
+            title: "Authorization API 1.0 – draft 01",
+            authors: ["O. Gazitt", "D. Brossard", "A. Tulshibagwale"]
+        },
         "REST API Design Rules": {
             href: "https://gitdocumentatie.logius.nl/publicatie/api/adr/",
             title: "NLGov REST API Design Rules 2.0.0",
