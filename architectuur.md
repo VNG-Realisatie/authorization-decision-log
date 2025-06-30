@@ -25,15 +25,13 @@ Toevoegen architectuur afbeeldingen
 
 In deze sectie wordt de scope van de standaard afgebakend.
 
-### Geen specificatie voor het beheren van Logboeken
-De standaard specificeert een interface voor het wegschrijven van Logregels. Dit is het deel dat in alle organisaties hetzelfde moet zijn om interoperabel te zijn. Het beheren van een Logboek is vrij in te vullen per implementatie.
-
-Dit betekent o.a. dat de standaard geen gedrag of interfaces specificeert voor:
-
-- het verwijderen of muteren van Logregels
-- het regelen van toegang tot het Logboek
-- het regelen van duurzame toegankelijkheid
-- het regelen van archivering en verwijdering van Logregels
+### No specification for the management of logs
+The specification defines an interface for persisting log entries. This is the component that MUST be consistent across organizations to ensure interoperability. The management of a Logbook, however, is left to the discretion of individual implementations.
+Consequently, the specification does NOT define behavior or interfaces for:
+- deleting or modifying log entries
+- managing access to the Logbook
+- ensuring long-term accessibility
+- handling archiving or deletion of log entries
 
 ## Flows
 

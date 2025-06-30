@@ -60,7 +60,7 @@ The `information` field is a message.
 
 The `information` **MUST** contain a `trace_id` and `span_id` or a `timestamp` or `data` field.
 
-The `timestamp` is the timestamp of the request if the `information`.
+The `timestamp` is the timestamp of the request.
 
 The `pdp` field is a message.
 
