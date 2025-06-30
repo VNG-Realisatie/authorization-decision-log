@@ -18,18 +18,20 @@ The interface **MUST** implement the following fields:
 |-------------|---------|---------------|----------------------------------------------------------------|
 | `trace_id`  | 16 byte | verplicht     | Unieke identificerende code van Trace die Dataverwerking volgt |
 | `span_id`   | 8 byte  | verplicht     | Unieke identificerende code van Actie binnen de Dataverwerking |
-| `timestamp` | timestamp (ms)  | verplicht     | Unieke identificerende code van Actie binnen de Dataverwerking |
-| `request`   | message | verplicht     | Input voor de toegangsbeslissing in AuthZen formaat            |
-| `response`  | message | verplicht     | Output voor de toegangsbeslissing in AuthZen formaat           |
+| `timestamp` | timestamp   | verplicht     | Unique identifier that refers to an exact instance in time     |
+| `request`   | message | verplicht     | Input for the decision in [[AuthZen]] format                   |
+| `response`  | message | verplicht     | Output for the decision in [[AuthZen]] format                  |
 | `pap`       | message | verplicht     | Zie toelichting                                                |
-| `pip`       | message | verplicht     | Zie toelichting           |
-| `pdp`       | message | verplicht     | Zie toelichting          |
+| `pip`       | message | verplicht     | Zie toelichting                                                |
+| `pdp`       | message | verplicht     | Zie toelichting                                                |
 
 Het veld `request` is een `message` die de input voor de toegangsbeslissing representeert. Dit veld **MOET** in AuthZen 
-formaat zijn.
+formaat zijn. Je **MAG** delen van het request weg laten vanwege privacy redenen. Wanneer deze delen weg worden gelaten is
+het niet meer mogelijk volledige verantwoording en replayability te hebben.
 
 Het veld `response` is een `message` die de input voor de toegangsbeslissing representeert. Dit veld **MOET** in AuthZen
-formaat zijn.
+formaat zijn. Je **MAG** delen van het request weg laten vanwege privacy redenen. Wanneer deze delen weg worden gelaten is
+het niet meer mogelijk volledige verantwoording en replayability te hebben.
 
 Het veld `PAP` is een `message`, opgebouwd uit de volgende velden.
 
