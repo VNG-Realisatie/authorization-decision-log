@@ -66,7 +66,7 @@ For information sources which are logged in an external log the request to the i
 | `trace_id` | 16 byte   | optional  | The trace_id of the request to the information source |
 | `span_id`  | 8 byte    | optional | The span_id of the request to the information source | |
 
-#### Information
+### Policy Decision Point
 
 The `pdp` field is a message.
 
