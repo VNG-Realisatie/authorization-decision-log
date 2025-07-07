@@ -5,7 +5,7 @@
 
 # Welkom
 
-Deze repository bevat de specificatie van het Logboek Toegangsverlening, Engels Authorization Decision Log/
+Deze repository bevat de specificatie van het Logboek Toegangsbeslissingen, Engels Authorization Decision Log.
 
 Deze standaard wordt door VNG realisatie ontwikkeld vanuit een vernieuwingsvoorstel van de GDI, in het kader van het Federatief Datastelsel (FDS).
 
