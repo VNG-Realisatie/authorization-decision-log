@@ -16,15 +16,24 @@ The interface **MUST** implement the following fields:
 
 | Field           | Type    | Required  | Description                                        |
 |----------------|-----------|-----------|----------------------------------------------------------------|
-| `trace_id`     | 16 byte   | required  | Unieke identificerende code van Trace die Dataverwerking volgt |
-| `span_id`      | 8 byte    | required  | Unieke identificerende code van Actie binnen de Dataverwerking |
+| `trace_id`     | 16 byte   | required  | Unique identifier of trace that follows data processing        |
+| `span_id`      | 8 byte    | required  | Unique identifier of span within the data processing           |
 | `timestamp`    | timestamp | required  | Unique identifier that refers to an exact instance in time     |
 | `request`      | message   | required  | Input for the decision in [[AuthZen]] format                   |
 | `request_type` | string    | required  | Type of the request as defined in the [[AuthZen]] standard     |
 | `response`     | message   | required  | Output for the decision in [[AuthZen]] format                  |
-| `policies`     | message   | required  | Refer to the notes below                                       |
-| `information`  | message   | optional  | Refer to the notes below                                 |
-| `pdp`          | message   | optional  | Refer to the notes below                                 |
+| `policies`     | message   | required  | Policy sources that affected the decision                      |
+| `information`  | message   | optional  | Information sources used in the decision                       |
+| `pdp`          | message   | optional  | Policy Decision Point metadata                                 |
+
+### Trace ID
+The `trace_id` field is a 16-byte unique identifier that represents the trace context for the data processing operation. This field **SHOULD** follow the W3C Trace Context specification. The trace ID enables correlation of the authorization decision with related operations.
+
+### Span ID
+The `span_id` field is an 8-byte unique identifier that represents the specific span within the trace context. This field **SHOULD** follow the W3C Trace Context specification. The span ID identifies the particular operation or step within the data processing flow where the authorization decision was made.
+
+### Timestamp
+The `timestamp` field represents the exact point in time when the authorization decision was made. The timestamp **SHOULD** be in ISO 8601 format with timezone information to ensure consistent interpretation across different systems and regions.
 
 ### Request
 The `request` field is a message that represents the input to the decision. This field **MUST** be in [[AuthZen]] format. Portions 
