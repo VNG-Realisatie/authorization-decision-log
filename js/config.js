@@ -5,13 +5,13 @@ let respecConfig = {
   specStatus: "WV",
   specType: "ST",
   pubDomain: "dk",
-  shortName: "ftv",
+  shortName: "authorization-decision-log",
   publishDate: "2024-05-19",
   publishVersion: "0.0.1",
   previousPublishVersion: null,
   previousPublishDate: null,
   previousMaturity: "WV",
-  title: "Standaard voor Logboek Toegangsbeslissingen",
+  title: "Authorization Decision Log",
   content: {
     "introductie": "introductie",
     "architectuur": "architectuur",
@@ -30,9 +30,16 @@ let respecConfig = {
   authors:
     [
       {
-        name: "Project Federatieve Toegangsverlening",
-        company: "MinBZK",
-        companyURL: "https://federatieve-toegangsverlening-digilab-overheid-n-5d4b9badc9bcfa.gitlab.io/",
+        name: "Maikel Hofman",
+        company: "VNG Realisatie"
+      },
+      {
+        name: "Guus van der Meer",
+        company: "Vecozo"
+      },
+      {
+        name: "Michiel Trimpe",
+        company: "VNG Realisatie"
       }
     ],
   // github: "https://gitlab.com/digilab.overheid.nl/ecosystem/ftv/federatieve-toegangsverlening/standaard",
