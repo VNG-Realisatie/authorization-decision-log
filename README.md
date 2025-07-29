@@ -9,6 +9,8 @@ Deze repository bevat de specificatie van het Logboek Toegangsbeslissingen, Enge
 
 Deze standaard wordt door VNG realisatie ontwikkeld vanuit een vernieuwingsvoorstel van de GDI, in het kader van het Federatief Datastelsel (FDS).
 
+Voor de standaard zie: https://vng-realisatie.github.io/authorization-decision-log/
+
 Zie voor meer informatie de website van het project FTV:
 [https://vng-realisatie.github.io/ftv/methodiek/authzen-nlgov/](https://vng-realisatie.github.io/ftv/methodiek/logboek-toegangsbeslissingen/)
 
