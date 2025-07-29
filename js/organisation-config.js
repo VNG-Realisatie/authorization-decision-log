@@ -22,6 +22,7 @@ var organisationConfig = {
 
     license: "cc0",
     addSectionLinks: true,
+    maxTocLevel: 3,
 
     localizationStrings: {
         en: {
@@ -109,8 +110,8 @@ var organisationConfig = {
 
     localBiblio: {
         "AuthZen": {
-            href: "https://openid.net/specs/authorization-api-1_0-01.html",
-            title: "Authorization API 1.0 – draft 01",
+            href: "https://openid.net/specs/authorization-api-1_0-03.html",
+            title: "Authorization API 1.0 – draft 03",
             authors: ["O. Gazitt", "D. Brossard", "A. Tulshibagwale"]
         },
         "REST API Design Rules": {
