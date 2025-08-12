@@ -13,11 +13,11 @@ let respecConfig = {
   previousMaturity: "WV",
   title: "Authorization Decision Log",
   content: {
-    "introductie": "introductie",
-    "architectuur": "architectuur",
-    "specificaties": "specificaties",
+    "introduction": "introduction",
+    "architecture": "architecture",
+    "specifications": "specifications",
     "inzicht-api": "inzicht-api",
-    "volwassenheidsniveau": "volwassenheidsniveau"
+    "levels-of-detail": "levels-of-detail"
   },
   editors:
     [
