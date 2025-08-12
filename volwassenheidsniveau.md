@@ -1,15 +1,33 @@
-# Volwassenheidsniveaus
+# Level of detail
 
-Logging kan op verschillende Volwassenheidsniveaus: hoe hoger het volwassenheidsniveau, hoe gedetailleerder er wordt gelogd.
+Logging can take place at different levels of details. The higher the level of detail, the more accurate the environment in which the historical decision occurred can be recreated allowing for optimal accountability.
 
-## Definities van niveaus
+## Definities van levels
 
 We maken drie verschillende niveaus op. Ter verduidelijking van elk niveau gebruiken we een niet-normatief voorbeeld van het opvragen van informatie over een auto.
 
-## Implicaties van niveaus
+### Request/Response
 
-Hoe hoger het niveau, hoe bruikbaarder de data is die uit het Logboek kan worden opgemaakt. Echter, de consequenties van een hoger niveau brengen ook lastigere vraagstukken met zich mee omtrent schaalbaarheid en technische haalbaarheid. Als voor elke Dataverwerking alle informatie wordt gelogd, dan kan dat problemen opleveren voor de hoeveelheid data en ook of het doenlijk is om de data te verwijderen als de Betrokkene daar om vraagt.
+Only the request for authorization and the response containing the decision are logged. 
 
-Tegelijkertijd is het laagste niveau van logging niet per definitie voldoende om de vereiste verantwoordelijkheid af te kunnen leggen. Dit hangt af van de situatie en de wettelijke bepalingen die verbonden zijn aan een Dataverwerking. Daarom is het van belang dat bij elke dataverwerking er wordt gekeken welk niveau van toepassing is, in plaats van een generiek niveau voor alle dataverwerkingen te bepalen. Hierbij is het niet noodzakelijk dat altijd het meest gedetailleerde niveau wordt gekozen.
+To provide accountability for a historical decision all environmental variables that affected the decision must be recreated from the request/response information; such as request identifiers and timestamps. This may often be impractical or impossible.
 
-**Bepalen verschillende volwassenheidsniveau's**
+### Policy version
+
+In addition to the request and response the exact version of the policies that were used to evaluate the request can programmatically retrieved. 
+
+### Information source
+
+*All* information used in the evaluation can be programamatically retrieved. This allows full replayability assuming the engine (PDP) behaves identically or can be manually recreated in the correct state; which is generally achievable. 
+
+### Full environment 
+
+In addition to all information used in the evaluation the environment and configuration of the engine that evaluates the decision can also be accurately recreated. This provides full guaranteed replayability and maximum accountability.
+
+## Implications of level of detail
+
+The higher the level of detail; the more detailed accountability can be provided based on the Authorization Decision Log. Higher levels also introduce other challenges around data duplication, scalability and feasibility. 
+
+The lowest level of detail on the other hand will often provide insufficient information to provide the desired level of accountability. 
+
+The interplay between these two aspects depends on the situation, organisation and legal environment. That's why it's important to evaluate which level of detail is appropriate for a given use-case. It is not necessary to always provide the highest level of detail.
