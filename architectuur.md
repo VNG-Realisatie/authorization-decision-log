@@ -4,11 +4,11 @@ This section describes the common EAM architecture within which the authorizatio
 
 ## Context
 
-The Authorization Decision Logs defines a standard format for recording access decisions made by Externalized Access Management systems. 
+The Authorization Decision Logs defines a standard format for recording decisions made by Externalized Access Management (EAM) systems .
 
-The goal of the standard is to enable full replayability of historical decisions while preventing unneccesary data duplication.
+The goal of the standard is to enable reconstitute the environment of historical decisions to enable replay and analysis while preventing unneccesary data duplication.
 
-The inputs to the Authorization Decision Log come from the following standard EAM or PxP components  
+The inputs to the Authorization Decision Log come from the following standard EAM or PxP components as introduced in {{NIST.SP.800-162}}.
 
 <figure>
 
@@ -20,10 +20,10 @@ graph TD;
     PIP[Policy Information Point]--Additional information-->PDP;
     PDP--Log entry-->ADL[Authorization Decision Log]
 ```
-<figcaption>Authorisation Architecture</figcaption>
+<figcaption>EAM or PxP Architecture</figcaption>
 </figure>
 
-## Componenten
+## Components
 
 De standaard architectuur voor toegangsverlening kent de volgende conceptuele componenten. Deze componenten kunnen als losstaande applicaties worden neer gezet maar ook in verschillende samenstellingen gecombineerd worden.
 
