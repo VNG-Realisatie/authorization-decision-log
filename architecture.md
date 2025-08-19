@@ -2,13 +2,21 @@
 
 This section describes the common EAM architecture within which the authorization decision are logged.
 
+Expand this section with
+
+- Federated
+- Inbound and outbound
+- Trace context (W3C context)
+- Follow request over all layers (internal and external)
+- LDV
+
 ## Context
 
 The Authorization Decision Logs defines a standard format for recording decisions made by Externalized Access Management (EAM) systems .
 
 The goal of the standard is to enable reconstitute the environment of historical decisions to enable replay and analysis while preventing unneccesary data duplication.
 
-The inputs to the Authorization Decision Log come from the following standard EAM or PxP components as introduced in {{NIST.SP.800-162}}.
+The inputs to the Authorization Decision Log come from the following standard EAM or PxP components as introduced in [[NIST.SP.800-162]].
 
 <figure>
 
@@ -26,6 +34,12 @@ graph TD;
 ## Components
 
 De standaard architectuur voor toegangsverlening kent de volgende conceptuele componenten. Deze componenten kunnen als losstaande applicaties worden neer gezet maar ook in verschillende samenstellingen gecombineerd worden.
+
+### Authorization Decision Log
+
+The Authorization Decision Log contains all information that was used in the authorization decision. Using the Authorization Decision Log it SHOULD be possible to recreate historical access decisions.
+
+_Verder uitwerken_
 
 ### Policy Enforcement Point (PEP)
 
@@ -70,11 +84,6 @@ Een Policy Decision Point is verantwoordelijk voor het:
 - evalueren van verwerkingsverzoeken op basis van het informatiemodel en de actuele autorisatieregels
 
 Een Policy Decision Point is veelal een externe applicatie of een sidecar/container die naast de applicatie draait. Het kan echter ook een component binnen de applicatie zijn. In dat geval dient wel extra aandacht te worden besteed aan het centraal beschikbaar maken van logs voor verantwoording.
-
-### Authorization Decision Log
-
-The Authorization Decision Log contains all information that was used in the authorization decision. Using the Authorization Decision Log it SHOULD be possible to recreate historical access decisions.  
-
 
 ## Scope
 
