@@ -4,22 +4,17 @@ The Authorization Decision Log standard defines a standard method for logging au
 
 ## Purpose of this standard
 
-This standard defines a uniform approach for logging authorization decisions. This allows organisation to provide effective accountability for decisions. 
+This standard defines a uniform approach for logging authorization decisions in such a way that organisation can provide effective accountability for historical decisions. 
 
 The standard provides a structured format for all contextual and environmental parameters that affect decisions. A full implementation of the standard allows historical decisions to be automatically reconstituted and replayed for analysis.
 
-### Werkingsgebied van de standaard
-Functioneel toepassingsgebied: De standaard kan worden toegepast voor iedere aanroep van een API.
+### Applicability
 
-Organisatorisch toepassingsgebied: Nederlandse overheden (Rijk, provincies, gemeenten en waterschappen) en instellingen 
-uit de (semi-) publieke sector. 
+Functionally, the standard is applicable to any API request. Organizationally, it applies to Dutch governmental bodies—such as the central government, provinces, municipalities, and water boards—as well as institutions in the (semi-)public sector.
 
-[//]: # (Internationaal focus ook mogelijk, via Michiel naar OpenID)
+### Target Audience
 
-### Doelgroep
-De doelgroep van de standaard omvat organisaties die betrokken zijn bij het maken en verantwoorden van 
-toegangsbeslissingen, zowel binnen de eigen organisatie als binnen samenwerkingsverbanden met andere partijen. Dit kan 
-onder meer de Nederlandse overheid en andere relevante instanties omvatten.
+The target audience for the standard includes organizations involved in making and accounting for access decisions, both within their own organization and in collaborations with other parties. This may include the Dutch government and other relevant authorities.
 
 ## Terminology 
 
@@ -27,7 +22,7 @@ The following list describes terminology and it's meaning as used in this docume
 
 **Externalized Authorization Management**
 
-??
+Externalized Authorization Management (EAM) is an architectural pattern in which authorization decisions are made outside of the applications that enforce the decision. 
 
 **Log**
 
@@ -45,12 +40,14 @@ once written and collectively forms part of the system’s audit and diagnostic 
 A structured set of names and types; also commonly referred to as a 'class' or 'type'.
 
 
-**Policy**
+**Policies**
 
-...
+A set of one or more rules which determine whether an API request should be allowed or denied.
 
 **Source**
 
 A source of environmental parameters which affected an authorization decision which can be retrieved given a provided identifier.
 
 **Replay**
+
+The recreation of the environment in which an authorization decision took place to allow for evaluation and exploration of historical decisions.

@@ -14,9 +14,9 @@ Expand this section with
 
 The Authorization Decision Logs defines a standard format for recording decisions made by Externalized Access Management (EAM) systems .
 
-The goal of the standard is to enable reconstitute the environment of historical decisions to enable replay and analysis while preventing unneccesary data duplication.
+The goal of the standard is to enable reconstitution of the environment in which historical authorization decisions were made to enable evaluation and exploration of decision while preventing unneccesary data duplication.
 
-The inputs to the Authorization Decision Log come from the following standard EAM or PxP components as introduced in [[NIST.SP.800-162]].
+The inputs to the Authorization Decision Log come from the following standard EAM or PxP components as introduced in [[NIST.SP.800-162]] and adopt the information model introduced in the [[AuthZEN]].
 
 <figure>
 
@@ -35,6 +35,10 @@ graph TD;
 
 The standard access control architecture has the following conceptual components. These can be deployed as standalone applications or combined in various configurations.
 
+### Authorization Decision Log
+
+The Authorization Decision Log contains all information that was used in the authorization decision. Using the Authorization Decision Log it SHOULD be possible to accurately recreate environmental factors which affected historical authorization decisions.  
+
 ### Policy Enforcement Point (PEP)
 
 A Policy Enforcement Point (PEP) intercepts a user's request, sends it to the Policy Decision Point (PDP) for evaluation, and then enforces the resulting "permit" or "deny" decision. PEPs are typically implemented as API gateways or as components within the application itself.
@@ -49,15 +53,11 @@ A Policy Information Point (PIP) enriches access requests with additional attrib
 
 ### Policy Decision Point (PDP)
 
-A Policy Decision Point (PDP) is the brain of the architecture. It evaluates the incoming request from the PEP against the relevant policies (from the PAP) and contextual data (from the PIP) to make a "permit" or "deny" decision. The PDP is often a separate application or sidecar container.
-
-### Authorization Decision Log
-
-The Authorization Decision Log contains all information that was used in the authorization decision. Using the Authorization Decision Log it SHOULD be possible to recreate the environment in which historical authorization decisions were made.  
+A Policy Decision Point (PDP) evaluates incoming request from the PEP against the relevant policies (from the PAP) and contextual data (from the PIP) to make a "permit" or "deny" decision. The PDP is often a separate application or sidecar container.
 
 ## Scope
 
-In deze sectie wordt de scope van de standaard afgebakend.
+This section delineates the scope of the standard.
 
 ### No specification for the management of logs
 The specification defines an interface for persisting log entries. This is the component that MUST be consistent across organizations to ensure interoperability. The management of a Logbook, however, is left to the discretion of individual implementations.
@@ -93,6 +93,6 @@ sequenceDiagram
 <figcaption>Writing a log record after an authorization decision</figcaption>
 </figure>
 
-To provide accountability for historical access decisions the environment within which the authorization decision was made is provided by the PDP to the Authorization Decision Log in the form of a Log Record as defined in the specification below. 
+To provide accountability for historical authorization decisions it must be possible to recreate the information and environment that affected the decision. The PDP provides the information required for this to the Authorization Decision Log in the form of a Log Record as defined in the specification below. 
 
-The PDP **SHOULD** await acknowledgement from the Authorization Decision Log that the record has been persisted before providing the Policy Enforcement Point with the decision.
+The PDP **SHOULD** await acknowledgement from the Authorization Decision Log providing the Policy Enforcement Point with the decision. This ensures that the log record has been persisted and can be used to provide accountability when needed.
