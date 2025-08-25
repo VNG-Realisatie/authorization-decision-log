@@ -1,24 +1,23 @@
-# Specification
+# Specifications
 
-Deze sectie geeft de specificatie voor de te gebruiken protocollen en interfaces en het verwachte gedrag van de componenten.
+This section provides the specification for the protocols and interfaces to be used and the expected behavior of the components.
 
-	
 ## Protocols
 
-
-De protocollen die worden gebruikt tussen applicatie en logboek en voor het uitvoeren van transacties tussen applicaties worden niet voorgeschreven in de standaard.
+The protocols used between the engine and the logbook are not prescribed in this standard.
 
 <div class="note">
 
-Let wel, met "de protocollen" bedoelen we de manier van afleveren van berichten tussen de componenten. Deze standaard beschrijft wel degelijk interfaces van de berichten zelf waar de componenten aan **MOETEN** voldoen, met als doel interopabiliteit tussen functionaliteit van componenten. De standaard laat vrij hoe die informatie tussen componenten wordt doorgegeven, omdat dat afhangt van de technische/architecturele keuzes die software ontwikkelaars maken. Dit biedt de vrijheid om de standaard toe te voegen aan vrijwel iedere softwareoplossing.
+Note, by "the protocols" we mean the method of delivering messages between components. This standard does describe the interfaces of the messages themselves, which the components **MUST** comply with, to ensure interoperability between component functionalities. The standard does not prescribe how that information is passed between components, as this depends on the technical/architectural choices made by software developers. This provides the freedom to add the standard to almost any software solution.
 
 </div>
 
-Het is ***AANBEVOLEN*** om [het OpenTelemetry Protocol (OTLP)](https://opentelemetry.io/docs/specs/otlp/) te gebruiken in de interactie tussen Applicatie en Logboek.
+It is **RECOMMENDED** to use the OpenTelemetry Protocol (OTLP) for the interaction between the Application and the Logbook.
 
 <div class="note">
 
-[OpenTelemetry](https://opentelemetry.io/) is een standaard en open source framework voor het beheren, genereren, verzamelen en exporteren van telemetriedata. Door het gebruik van deze open standaard kunnen leverancierspecifieke integraties voorkomen worden. OpenTelemetry is een [CNCF incubating project](https://www.cncf.io/projects/).
+OpenTelemetry is a standard and open-source framework for managing, generating, collecting, and exporting telemetry data. Using this open standard can prevent vendor-specific integrations. OpenTelemetry is a CNCF incubating project.
+
 
 </div>
 
@@ -33,15 +32,15 @@ The Logbook **SHOULD** confirm the successful persistence of each log entry. If 
 
 The interface **MUST** implement the following fields:
 
-| Field          | Type      | Required  | Description                                                    |
-|----------------|-----------|-----------|----------------------------------------------------------------|
-| `timestamp`    | timestamp | required  | Unique identifier that refers to an exact instance in time     |
-| `request_type` | string    | required  | Type of the request as defined in the [[AuthZen]] standard     |
-| `request`      | message   | required  | Input for the decision in [[AuthZen]] format                   |
-| `response`     | message   | required  | Output of the decision in [[AuthZen]] format                   |
-| `policies`     | message   | required  | Policy sources that affected the decision                      |
-| `information`  | message   | optional  | Information sources used in the decision                       |
-| `engine`          | message   | optional  | Policy Decision Point configuration and metadata               |
+| Field          | Type      | Required  | Description                                                                  |
+|----------------|-----------|-----------|------------------------------------------------------------------------------|
+| `timestamp`    | timestamp | required  | Unique identifier that refers to an exact instance in time                   |
+| `endpoint`     | string    | required  | Endpoint and thus type of request as defined in the [[AuthZen]] standard     |
+| `request`      | message   | required  | Input for the decision in [[AuthZen]] format                                 |
+| `response`     | message   | required  | Output of the decision in [[AuthZen]] format                                 |
+| `policies`     | message   | required  | Policy sources that affected the decision                                    |
+| `information`  | message   | optional  | Information sources used in the decision                                     |
+| `engine`       | message   | optional  | Policy Decision Point configuration and metadata                             |
 
 The interface **MUST** have fields that can identify the request. 
 
@@ -58,20 +57,24 @@ defined fields and **SHOULD** be ignored by recipients that do not recognize the
 ### Timestamp
 The `timestamp` field represents the exact point in time when the authorization decision was made. The timestamp **SHOULD** be in [[RFC3339]] format to ensure consistent interpretation across different systems and regions.
 
-### Request Type
-The `request_type` field represents the type of authorization decision which was made. Its value **MUST** be a string containing the path of the HTTPS Binding as defined in [[AuthZEN]].
+### Endpoint / Request Type
+The `endpoint` field represents the endpoint that was called and thus the type of authorization decision which was made. 
+
+Its value **MUST** be a string containing the key value of the relevant endpoint as defined in "Endpoint Parameters" of the "Policy Decision Point Metadata" as defined in [[AuthZEN]] with `_endpoint` omitted. 
+
+For example; a request to the URL defined by the `search_subject_endpoint` in the PDP metadata is considered to have the `endpoint` of `search_subject`.
 
 ### Request
 The `request` field is a message that represents the input to the decision. This field **MUST** be in [[AuthZen]] format as defined for the given request type. 
 
-Portions of the request **MAY** be omitted for privacy reasons. If information that was used by the Policy Decision Point is omitted then full accountability can no longer be provided.
+Portions of the request **MAY** be omitted for privacy reasons. If the omitted information was used by the Policy Decision Point then full accountability can no longer be provided.
 
 ### Response
 The `response` field is a message that represents the output of the decision. This field **MUST** be in [[AuthZen]] format as defined for the given request type. 
 
 Portions of the response **MAY** be omitted for privacy reasons. If information that was used by the Policy Enforcement Point is omitted then full accountability can no longer be provided.
 
-### Policies
+### Policy Sources
 The `policies` field is a message in which each key identifies a policy source. All policies sources that have affected the decision **MUST** be included. The value associated with each key refers to a unique version of the policy source. The information in this field **MUST** 
 be sufficient to retrieve all policies from the policy source that were used in the authorization decision.
 
@@ -81,14 +84,25 @@ Examples include:
 - Semantic version
 - Git hash
 
-### Information
-The `information` field is a message in which each key identifies an information source. The value of this field **SHOULD** contain the information that was used in the access decision or be sufficient to retrieve the information. 
+### Information Sources
+The `information` field is a message in which each key identifies an information source. All policies sources that have affected the decision **SHOULD** be included. The value of this field **SHOULD** contain the information that was used in the access decision or be sufficient to retrieve the information. 
 
 In case the information field contains an identifier that is used to retrieve the information; one of the following common source identifiers **MAY** be used.
 
+#### Versioned source
+
+In case the source of information offers the ability to 'time-travel' by providing a version at which to query then the data itself may be omitted.  
+
+The version identifier can be a value, such as a string or numeric value, or a complex object, such as an array containing partition offsets in case of Kafka-based versioning for example.
+
 #### Temporal source
 
-In case the source of information offers the ability to 'time-travel' by providing a timestamp at which to query then the data itself may be omitted.  
+In case the source of information offers the ability to 'time-travel' by providing a timestamp at which to query then the data itself may be omitted. 
+
+<p class="note" title="Usage of REST API Design Rules">
+In the context of REST API's developed by the Dutch goverment the <a href="https://docs.geostandaarden.nl/api/API-Strategie-ext/#temporal">Temporal extension</a> of the [[REST API Design Rules]] can be used for this purpose.
+</p>
+
 
 It is **RECOMMENDED** to use use the timestamp defined in the `time` field in the `context` of the `request` for this purpose. In that case the information source **MAY** be omitted fully. 
 
@@ -98,7 +112,7 @@ If a different timestamp is used then the timestamp **SHOULD** be a message in t
 |------------|-----------|-----------|------------------------------------------------------------|
 | `timestamp` | timestamp | optional | String value that refers to an exact instance in time | |
 
-#### Logged request
+#### Logged source
 
 For information sources which are logged in an external log the request to the information source *SHOULD* use the W3C Trace Context standard in the following format. 
 
