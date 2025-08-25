@@ -18,11 +18,11 @@ In addition to the request and response the exact version of the policies that w
 
 ### Information source
 
-*All* information used in the evaluation can be programamatically retrieved. This allows full replayability assuming the engine (PDP) behaves identically or can be manually recreated in the correct state; which is generally achievable. 
+*All* information used in the evaluation can be programmatically retrieved. This allows full replayability assuming the engine (PDP) behaves identically or can be manually recreated in the correct state; which is generally achievable. 
 
 ### Full environment 
 
-In addition to all information used in the evaluation the environment and configuration of the engine that evaluates the decision can also be accurately recreated. This provides full guaranteed replayability and maximum accountability.
+In addition to all information used in the evaluation, the environment and configuration of the engine that evaluates the decision can also be accurately recreated. This provides full guaranteed replayability and maximum accountability.
 
 ## Implications of level of detail
 

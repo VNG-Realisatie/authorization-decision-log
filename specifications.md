@@ -18,6 +18,7 @@ It is **RECOMMENDED** to use the OpenTelemetry Protocol (OTLP) for the interacti
 
 OpenTelemetry is a standard and open-source framework for managing, generating, collecting, and exporting telemetry data. Using this open standard can prevent vendor-specific integrations. OpenTelemetry is a CNCF incubating project.
 
+
 </div>
 
 

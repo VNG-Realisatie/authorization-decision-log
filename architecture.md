@@ -2,6 +2,14 @@
 
 This section describes the common EAM architecture within which the authorization decision are logged.
 
+Expand this section with
+
+- Federated
+- Inbound and outbound
+- Trace context (W3C context)
+- Follow request over all layers (internal and external)
+- LDV
+
 ## Context
 
 The Authorization Decision Logs defines a standard format for recording decisions made by Externalized Access Management (EAM) systems .
@@ -46,7 +54,6 @@ A Policy Decision Point (PDP) is the brain of the architecture. It evaluates the
 ### Authorization Decision Log
 
 The Authorization Decision Log contains all information that was used in the authorization decision. Using the Authorization Decision Log it SHOULD be possible to recreate the environment in which historical authorization decisions were made.  
-
 
 ## Scope
 
