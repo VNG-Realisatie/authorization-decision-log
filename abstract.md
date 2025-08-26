@@ -1,1 +1,1 @@
-This document defines a standardized method for logging decisions to allow or deny API requests using information models defined by the [[AuthZen]] standard.
+This document defines a standard for logging decisions to allow or deny API requests using information models defined by the [[AuthZen]] standard.

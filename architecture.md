@@ -1,14 +1,6 @@
 # Architecture
 
-This section describes the common EAM architecture within which the authorization decision are logged.
-
-Expand this section with
-
-- Federated
-- Inbound and outbound
-- Trace context (W3C context)
-- Follow request over all layers (internal and external)
-- LDV
+This section describes the common EAM architecture within which the authorization decisions are logged.
 
 ## Context
 
