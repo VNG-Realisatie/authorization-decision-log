@@ -6,17 +6,17 @@ TODO: Expand
 
 ## Purpose of this standard
 
-This standard defines a uniform approach for logging authorization decisions in such a way that organisations can provide effective accountability for historical decisions. 
+This standard defines a uniform approach for logging authorization decisions in such a way that organizations can provide effective accountability for historical decisions. 
 
 The standard provides a structured format for all contextual and environmental parameters that affect decisions. A full implementation of the standard allows historical decisions to be replayed for analysis.
 
 ### Applicability
 
-Functionally, the standard is applicable to any API request. Organisationally, it applies to Dutch governmental bodies—such as the central government, provinces, municipalities, and water boards—as well as institutions in the (semi-)public sector.
+Functionally, the standard is applicable to any API request. Organizationally, it applies to Dutch governmental bodies—such as the central government, provinces, municipalities, and water boards—as well as institutions in the (semi-)public sector.
 
 ### Target Audience
 
-The target audience for the standard includes organisations involved in making and accounting for access decisions, both within their own organisation and in collaborations with other parties. This may include the Dutch government and other relevant authorities.
+The target audience for the standard includes organizations involved in making and accounting for access decisions, both within their own organization and in collaborations with other parties. This may include the Dutch government and other relevant authorities.
 
 ## Terminology 
 
@@ -45,7 +45,7 @@ A set of one or more rules which determine whether a request should be allowed o
 
 **Source**
 
-A source of environmental parameters which affected an authorization decision which can be retrieved given a provided identifier.
+A source of one or more pieces of information, such as attributes or policies, which affected an authorization decision and which can be retrieved given a provided identifier.
 
 **Replay**
 

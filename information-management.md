@@ -1,8 +1,8 @@
 # Information Management
 
-The technical specification defines the what and how of logging authorization decisions. This section addresses the critical governance aspects of how much data is logged, who can access it, and for how long it is retained. It provides a framework for managing the data lifecycle within the Authorization Decision Log to ensure it is purposeful, compliant, and secure.
+This section addresses the critical governance aspects of how much data is logged, who can access it, and for how long it is retained. It provides a framework for managing the data lifecycle within the Authorization Decision Log to ensure it is purposeful, compliant, and secure.
 
-Each organization is responsible for its own Authorization Decision Log. There is no central log although logs of several organisations can be aggregated if desired.
+Each organization is responsible for its own Authorization Decision Log. There is no central log although logs of several organizations can be aggregated if desired.
 
 ## Defining Information Requirements
 
@@ -12,7 +12,9 @@ Key considerations include:
 
 * **Purpose Limitation**: Clearly define the objectives of the log. Is it for internal auditing, providing accountability to citizens, analyzing security patterns, or supplying evidence to supervisory authorities? You should not record more information than is necessary for these defined purposes.  
 * **Stakeholder Needs**: Identify all stakeholders and their information requirements. This may include internal auditors, legal departments, security officers, and external regulators or supervisory bodies.  
-* **Data Minimization**: A core principle is to avoid storing unnecessary information, especially sensitive data. The goal is to make the log precise, compact, and manageable. Instead of duplicating large amounts of data (e.g., all user attributes from a source system like BRP), prefer storing only te data used (e.g., the birthdate) or even just a reference (e.g., the BSN) that allows the state at the time of the decision to be reconstructed.
+* **Data Minimization**: A core principle is to avoid storing unnecessary information, especially sensitive data. The goal is to make the log precise, compact, and manageable. Instead of duplicating large amounts of data (e.g., all user attributes from a source system like BRP), prefer storing only te data used (e.g., the birthdate) or even just a reference (e.g., the BSN) that allows the state at the time of the decision to be recreated.
+* **Data Aggregation**: For analytical purposes, such as identifying patterns to improve system resilience, consider providing aggregated or anonymized data. This can provide valuable insights while mitigating the privacy risks associated with granting access to raw log data.  
+
 
 ## Data Verifiability and Level of Detail
 
@@ -44,6 +46,5 @@ The storage and management of log data are also subject to various laws and lega
 Clear rules must be established for who can access the log and under what conditions.
 
 * **Access Control**: Define roles and permissions for accessing the log data itself. Access should be granted on a need-to-know basis.  
-* **Data Aggregation**: For analytical purposes, such as identifying patterns to improve system resilience, consider providing aggregated or anonymized data. This can provide valuable insights while mitigating the privacy risks associated with granting access to raw log data.  
 * **Responding to Incidents**: The log is a critical tool for forensic analysis after a security incident or data breach. It can help determine what actions were permitted at a specific time and on what basis, even if that permission was technically correct but improper in hindsight.
-* **Observability in Data Spaces**: The log can provide a structured method for data providers to evaluate and inspect data usage by consumers. This allows the standard to be used to provide so called "Observability services" for data spaces.
+* **Observability in Data Spaces**: The log can provide a structured method for data providers to analyse data usage by consumers. This allows the standard to be used to provide so called "Observability services" for data spaces.
