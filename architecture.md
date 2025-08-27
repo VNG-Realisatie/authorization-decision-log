@@ -4,9 +4,9 @@ This section describes the common EAM architecture within which the authorizatio
 
 ## Context
 
-The Authorization Decision Logs defines a standard format for recording decisions made by Externalized Access Management (EAM) systems .
+The Authorization Decision Log defines a standard format for recording decisions made by Externalized Authorization Management (EAM) systems.
 
-The goal of the standard is to enable recreation of the environment in which historical authorization decisions were made to enable analysis of decisions while preventing unneccesary data duplication.
+The goal of the standard is to enable recreation of the environment in which historical authorization decisions were made to enable analysis of decisions while preventing unnecessary data duplication.
 
 The inputs for records in the Authorization Decision Log come from the following standard EAM or PxP components as introduced in [[NIST.SP.800-162]] and adopt the information model introduced in [[AuthZEN]].
 
@@ -56,15 +56,15 @@ sequenceDiagram
 
 ## Components
 
-The standard EAM architecture has the following conceptual components. These can be deployed as standalone applications, combined in various configurations or even implemented within a single monolithic application. 
+The standard EAM architecture has the following conceptual components. These can be deployed as standalone applications, combined in various configurations, or even implemented within a single monolithic application. 
 
 ### Authorization Decision Log
 
-The Authorization Decision Log contains all information that was used in the authorization decision. Using the Authorization Decision Log it SHOULD be possible to accurately recreate environmental factors which affected historical authorization decisions.  
+The Authorization Decision Log contains all information that was used in the authorization decision. Using the Authorization Decision Log it SHOULD be possible to accurately recreate environmental factors that affected historical authorization decisions.  
 
 ### Policy Enforcement Point (PEP)
 
-A Policy Enforcement Point (PEP) intercepts a user's request, sends it to the Policy Decision Point (PDP) for evaluation, and then enforces the resulting "permit" or "deny" decision. PEPs are typically implemented as API gateways or as components within the application itself.
+A Policy Enforcement Point (PEP) intercepts a user's request, sends it to the Policy Decision Point (PDP) for evaluation, and then enforces the resulting "permit" or "deny" decision. A PEP is typically implemented as an API gateway or as a component within the application itself.
 
 ### Policy Administration Point (PAP)
 
@@ -76,8 +76,11 @@ A Policy Information Point (PIP) enriches access requests with additional attrib
 
 ### Policy Decision Point (PDP)
 
-A Policy Decision Point (PDP) evaluates incoming request from the PEP against the relevant policies (from the PAP) and contextual data (from the PIP) to make a "permit" or "deny" decision. The PDP is often a separate application or sidecar container.
+A Policy Decision Point (PDP) evaluates incoming requests from the PEP against the relevant policies (from the PAP) and contextual data (from the PIP) to make a "permit" or "deny" decision. The PDP is often a separate application or sidecar container.
 
+<p class="note" title="EAM components within a monolithic application">
+It is important to keep in mind that these are architectural components. They can also be physically implemented in a single application. In such a case the authorization interceptor can be considered the PEP, the authorization handler the PDP, the services it invokes the PIP and the Git repository of the application itself the PAP.
+</p>
 
 ## Scope
 
@@ -117,11 +120,6 @@ sequenceDiagram
 <figcaption>Writing a log record after an authorization decision</figcaption>
 </figure>
 
-To provide accountability for historical authorization decisions it must be possible to recreate the information and environment that affected the decision. The PDP provides the information required for this to the Authorization Decision Log in the form of a Log Record as defined in the specification below. 
+To provide accountability for historical authorization decisions it must be possible to recreate the information and environment that affected the decision. The PDP provides the information required for this to the Authorization Decision Log in the form of a Log Record, as defined in the specification below. 
 
 The PDP **SHOULD** await acknowledgement from the Authorization Decision Log before providing the Policy Enforcement Point with the decision. This ensures that the log record has been persisted and can be used to provide accountability when needed.
-
-<p class="note" title="EAM components within a monolithic application">
-It is important to keep in mind that these are architectural components. They can also be physically implemented in a single application. In such a case the authorization intercepter can be considered the PEP, the authorization handler as the PDP, the services invoked by the authorization handler as the PIP and the Git repository of the application itself as the PAP.
-</p>
-
