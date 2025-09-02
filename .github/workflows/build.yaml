@@ -20,11 +20,10 @@ jobs:
       - name: Build ReSpec file
         run: |
           npm install -g @mermaid-js/mermaid-cli
-          mmdc -i images/federated-logging.mmd -o images/federated-logging.svg || true
-          mmdc -i images/writing-log-record.mmd -o images/writing-log-record.svg || true
-          mmdc -i images/eam-architecture.mmd -o images/eam-architecture.svg || true
           mkdir -p public/images
-          cp images/*.svg public/images/
+          mmdc -i images/federated-logging.mmd -o public/images/federated-logging.svg
+          mmdc -i images/writing-log-record.mmd -o public/images/writing-log-record.svg
+          mmdc -i images/eam-architecture.mmd -o public/images/eam-architecture.svg
           python3 -m http.server 8000 &
           sleep 5
           npx respec http://localhost:8000/base.html public/index.html --disable-sandbox
