@@ -19,8 +19,12 @@ jobs:
         uses: actions/checkout@v4
       - name: Build ReSpec file
         run: |
+          mmdc -i images/federated-logging.mmd -o images/federated-logging.svg
+          mmdc -i images/writing-log-record.mmd -o images/writing-log-record.svg
+          mmdc -i images/eam-architecture.mmd -o images/eam-architecture.svg
+          mkdir -p public/images
+          cp images/*.svg public/images/
           python3 -m http.server 8000 &
-          mkdir public
           sleep 5
           npx respec http://localhost:8000/base.html public/index.html --disable-sandbox
       - name: Upload artifact

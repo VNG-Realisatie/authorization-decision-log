@@ -12,14 +12,7 @@ The inputs for records in the Authorization Decision Log come from the following
 
 <figure>
 
-```mermaid
-graph TD;
-    PEP[Policy Enforcement Point]--Information model-->PDP[Policy Decision Point];
-    PDP--Decision-->PEP;
-    PAP[Policy Administration Point]--Policies-->PDP;
-    PIP[Policy Information Point]--Contextual information-->PDP;
-    PDP--Log entry-->ADL[Authorization Decision Log]
-```
+![diagram](./images/eam-architecture.svg)
 <figcaption>EAM or PxP Architecture</figcaption>
 </figure>
 
@@ -30,26 +23,7 @@ See the sequence diagram below for an example of such a flow. The W3C Trace Cont
 
 <figure>
 
-```mermaid
-sequenceDiagram
-    participant ConsumerADL as Consumer<br/>Decision Log
-    participant ConsumerPDP as Consumer<br/>Decision Point
-    actor User
-    participant Consumer
-    participant Provider
-    participant ProviderPDP as Provider<br/>Decision Point
-    participant ProviderADL as Provider<br/>Decision Log
-    User-->>+Consumer: request
-    Consumer-->>+ConsumerPDP:allowed?
-    ConsumerPDP-->>ConsumerADL:log record
-    ConsumerPDP-->>-Consumer:yes
-    Consumer-->>+Provider: 
-    Provider-->>+ProviderPDP: allowed?
-    ProviderPDP-->>ProviderADL:log record
-    ProviderPDP-->>-Provider: yes
-    Provider-->>-Consumer: 
-    Consumer-->>-User: response
-```
+![diagram](./images/federated-logging.svg)
 <figcaption>Decision logging in federated context</figcaption>
 </figure>
 
@@ -100,23 +74,7 @@ Consequently, the specification does NOT define behavior or interfaces for:
 
 <figure>
 
-```mermaid
-sequenceDiagram
-    participant PEP
-    participant PAP
-    participant PIP
-    participant PDP
-    participant ADL
-    PAP->>PDP: Policies
-    PIP->>PDP: Static information
-    PEP->>PDP: Access Evaluation Request
-    PDP->>+PIP: Dynamic information
-    PIP-->>-PDP: ack
-    PDP->>+ADL: Log Record
-    ADL-->>-PDP: ack
-    PDP->>PEP: Decision
-```
-
+![diagram](./images/writing-log-record.svg)
 <figcaption>Writing a log record after an authorization decision</figcaption>
 </figure>
 
