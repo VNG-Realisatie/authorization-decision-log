@@ -17,9 +17,9 @@ The inputs for records in the Authorization Decision Log come from the following
 </figure>
 
 
-In a federated context both consumer (outbound) and provider (inbound) decisions can be logged using this standard. When combined with tracing headers such as the W3C Tracing Context introduced by [[Logboek dataverwerkingen]] this enables traceability across complex multi-organizational processing chains.
+In a federated context both consumer (outbound) and provider (inbound) decisions can be logged using this standard. When combined with tracing headers such as [[W3C Trace Context]] introduced by [[Logboek dataverwerkingen]] this enables traceability across complex multi-organizational processing chains.
 
-See the sequence diagram below for an example of such a flow. The W3C Trace Context will be included in every request and can thus be used as request identifier in the Authorization Decision Log.
+See the sequence diagram below for an example of such a flow. The [[W3C Trace Context]] will be included in every request and can thus be used as request identifier in the Authorization Decision Log.
 
 <figure>
 

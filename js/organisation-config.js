@@ -126,6 +126,12 @@ var organisationConfig = {
             authors: ["Eelco Hotting", "Vedran Bilanovic"],
             date: "n.t.b."
         },
+        "W3C Trace Context": {
+            href: "https://www.w3.org/TR/trace-context/",
+            title: "Trace Context",
+            authors: ["Sergey Kanzhelev","Morgan McLean","Alois Reitbauer","Bogdan Drutu","Nik Molnar","Yuri Shkuro"],
+            date: "23 november 2021"
+        },
         "W3C Verifiable Credentials": {
             href: "https://www.w3.org/TR/vc-data-model/",
             title: "Verifiable Credentials Data Model v1.1",

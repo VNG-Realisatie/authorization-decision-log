@@ -3,12 +3,12 @@ sequenceDiagram
     participant PAP
     participant PIP
     participant PDP
-    participant ADL
+    participant Decision Log
     PAP->>PDP: Policies
     PIP->>PDP: Static information
     PEP->>PDP: Access Evaluation Request
     PDP->>+PIP: Dynamic information
     PIP-->>-PDP: ack
-    PDP->>+ADL: Log Record
-    ADL-->>-PDP: ack
+    PDP->>+Decision Log: Log Record
+    Decision Log-->>-PDP: ack
     PDP->>PEP: Decision
