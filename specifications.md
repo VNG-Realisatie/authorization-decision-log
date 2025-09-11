@@ -55,6 +55,8 @@ Implementations **MAY** include additional fields. Such fields **MUST NOT** alte
 
 The following JSON object contains a non-normative example of a log record describing a manager approving a holiday request:
 
+<aside class="example" title="Log record of holiday approval">
+
 ```json
 {
 	"timestamp": "2025-09-07T10:14:18Z",
@@ -93,7 +95,7 @@ The following JSON object contains a non-normative example of a log record descr
 	}
 }
 ```
-
+</aside>
 
 ### Timestamp
 The `timestamp` field represents the exact point in time when the authorization decision was made. The timestamp **SHOULD** be in [[RFC3339]] format to ensure consistent interpretation across different systems and regions.
@@ -130,6 +132,8 @@ Non-normative examples include:
 
 The following shows a non-normative example using a Git hash for internal policies and a complex object with filters and semantic versioning to include policies of a federation the application takes part in.
 
+<aside class="example" title="Simple and complex policy sources">
+
 ```json
 {
 	"application": "6266d07750c44b4c9b05d0801b752c0ef884e4f6",
@@ -139,6 +143,7 @@ The following shows a non-normative example using a Git hash for internal polici
 	}
 }
 ```
+</aside>
 
 ### Information Sources
 The `information` field is an object in which each key identifies an information source. All information sources that have affected the decision **SHOULD** be included. The value of this field **SHOULD** contain the information that was used in the access decision or be sufficient to retrieve the information. 
@@ -155,12 +160,15 @@ The version identifier can be a simple value, such as a string or number, or a c
 
 The following non-normative example shows an entry permit request being evaluated based on a traffic policy decree and traffic estimates based on offsets in a Kafka stream of ANPR events.
 
+<aside class="example" title="Simple and complex versioned information sources">
+
 ```json
 {
 	"traffic-policy": "gmb-2025-94604@1.1",
 	"traffic-estimate": [ 8376912, 8368118, 8377785, 8386285, 8383526 ]
 }
 ```
+</aside>
 
 #### Temporal source
 
@@ -188,6 +196,8 @@ It is *RECOMMENDED* to log requests in the [[WARC]] format as it includes all re
 In case the `trace_id` is identical to that of the main request the `trace_id` **MAY** be omitted.
 
 The following non-normative example shows a log record for a request to find all subjects capable of approving a holiday request:
+
+<aside class="example" title="Log record of a search request for managers with approval rights">
 
 ```json
 {
@@ -230,8 +240,11 @@ The following non-normative example shows a log record for a request to find all
 	}
 }
 ```
+</aside>
 
 Which would result in the following WARC entries logging the REST API call to the HR system:
+
+<aside class="example" title="WARC entries for REST API call to HR system">
 
 ```warc
 WARC/1.1
@@ -269,6 +282,7 @@ Content-Length: 107
 	}
 }
 ```
+</aside>
 
 ### Engine
 
