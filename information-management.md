@@ -37,25 +37,78 @@ Common and important usage policies include:
 
 The ability to provide accountability depends on the log's level of detail. A balance must be struck between capturing enough information to accurately replay historical decisions and practical challenges like data duplication and scalability. The appropriate level of detail depends on the organization's specific context and legal requirements, as the highest level is not always necessary.
 
-To ensure historical accuracy while minimizing data storage, referencing external information (e.g., via a timestamp or version number) is preferred over storing full copies. This approach keeps logs lean but is contingent on the ability of source systems to provide versioned historical data.
+To ensure historical accuracy while minimizing data storage, referencing external information (e.g., via a timestamp or version number) is preferred over storing copies. This approach keeps logs lean but is contingent on the ability of source systems to provide versioned historical data.
 
 For full replayability, the log must also identify the exact version and configuration of the policy engine that evaluated the decision; however, providing reliable versioning for the engine may not always be feasible, depending on the infrastructure.
-
 
 We have identified four levels of detail, in order of least to most detail. Each level builds on the information from the previous level.
 
 ### Decision Request/Response
 
-Only the request for authorization and the response containing the decision are logged. To provide accountability for a historical decision, all environmental variables that affected the decision must be recreated from the request/response information, such as request identifiers and timestamps. This may often be impractical or impossible.  
+At the most basic level only the decision request and the decision response are logged. By nature this is very similar to an audit log as required by [[IEC 27002]] and [[BIO]], but extended with the information about the request that was captured by the Policy Enforcement Point (PEP).
+
+At this level of detail log requests contain the following keys, as defined in [[#specification]]:
+
+| Field          | Required  | Reference         |
+|----------------|-----------|-------------------|
+| `trace_id`     | optional  | [[#trace_id]]     |
+| `span_id`      | optional  | [[#span_id]]      |
+| `timestamp`    | required  | [[#timestamp]]    |
+| `request_type` | required  | [[#request_type]] |
+| `request`      | required  | [[#request]]      |
+| `response`     | required  | [[#response]]     |
 
 ### Decision and Policies
 
 In addition to the request and response, the exact version of the policies that were used to evaluate the request can be programmatically retrieved.  
 
+At this level of detail log requests contain the following keys, as defined in [[#specification]]:
+
+| Field          | Required  | Reference         |
+|----------------|-----------|-------------------|
+| `trace_id`     | optional  | [[#trace_id]]     |
+| `span_id`      | optional  | [[#span_id]]      |
+| `timestamp`    | required  | [[#timestamp]]    |
+| `request_type` | required  | [[#request_type]] |
+| `request`      | required  | [[#request]]      |
+| `response`     | required  | [[#response]]     |
+| `policies`     | required  | [[#policies]]     |
+
 ### All Information Sources
 
 All information used in the evaluation can be programmatically retrieved. This allows full replayability, assuming the engine (PDP) behaves identically or can be manually recreated in the correct state, which is generally achievable.  
 
+At this level of detail log requests contain the following keys, as defined in [[#specification]]:
+
+| Field          | Required  | Reference         |
+|----------------|-----------|-------------------|
+| `trace_id`     | optional  | [[#trace_id]]     |
+| `span_id`      | optional  | [[#span_id]]      |
+| `timestamp`    | required  | [[#timestamp]]    |
+| `request_type` | required  | [[#request_type]] |
+| `request`      | required  | [[#request]]      |
+| `response`     | required  | [[#response]]     |
+| `policies`     | required  | [[#policies]]     |
+| `information`  | required  | [[#information]]  |
+
 ### Full Environment
 
-In addition to all information used in the evaluation, the environment and configuration of the engine that evaluates the decision can also be accurately recreated. This provides full, guaranteed replayability and maximum accountability.
+In addition to all information used in the evaluation, the environment and configuration of the engine that evaluates the decision can also be accurately recreated. This provides full, guaranteed replayability and maximum accountability. 
+
+<p class="note" title="Engine boundaries">
+In most cases the evaluation engine consists only of the Policy Decision Point. In some cases the Policy Administration Point and Policy Information Point also introduce behaviour which should be captured in the engine field. 
+</p>
+
+At this level of detail log requests contain the following keys, as defined in [[#specification]]:
+
+| Field          | Required  | Reference         |
+|----------------|-----------|-------------------|
+| `trace_id`     | optional  | [[#trace_id]]     |
+| `span_id`      | optional  | [[#span_id]]      |
+| `timestamp`    | required  | [[#timestamp]]    |
+| `request_type` | required  | [[#request_type]] |
+| `request`      | required  | [[#request]]      |
+| `response`     | required  | [[#response]]     |
+| `policies`     | required  | [[#policies]]     |
+| `information`  | required  | [[#information]]  |
+| `engine`       | required  | [[#engine]]       |
