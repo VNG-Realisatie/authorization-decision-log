@@ -22,7 +22,7 @@ var organisationConfig = {
 
     license: "cc0",
     addSectionLinks: true,
-    maxTocLevel: 3,
+    maxTocLevel: 4,
 
     localizationStrings: {
         en: {
@@ -126,35 +126,17 @@ var organisationConfig = {
             authors: ["Eelco Hotting", "Vedran Bilanovic"],
             date: "n.t.b."
         },
-        "W3C Trace Context": {
-            href: "https://www.w3.org/TR/trace-context/",
-            title: "Trace Context",
-            authors: ["Sergey Kanzhelev","Morgan McLean","Alois Reitbauer","Bogdan Drutu","Nik Molnar","Yuri Shkuro"],
-            date: "23 november 2021"
-        },
-        "W3C Verifiable Credentials": {
-            href: "https://www.w3.org/TR/vc-data-model/",
-            title: "Verifiable Credentials Data Model v1.1",
-            authors: ["Manu Sporny", "Dave Longley", "David Chadwick"],
-            date: "3 maart 2022"
-        },
-        "NL GOV Assurance profile for OAuth": {
-            href: "https://gitdocumentatie.logius.nl/publicatie/api/oauth/",
-            title: "NL GOV Assurance profile for OAuth 2.0",
-            authors: ["Frank Terpstra", "Jan van Gelder"],
-            date: "9 juli 2020"
-        },
         "FSC - Core": {
             href: "https://commonground.gitlab.io/standards/fsc/core/draft-fsc-core-00.html",
             title: "FSC - Core",
             authors: ["Eelco Hotting", "Ronald Koster", "Henk van Maanen", "Niels Dequeker", "Edward van Gelderen", "Pim Gaemers"],
             date: "8 december 2023"
         },
-        "OpenID NLGov": {
-            href: "https://gitdocumentatie.logius.nl/publicatie/api/oidc/",
-            title: "OpenID NLGov 1.0.1",
-            authors: ["Remco Schaar", "Frank van Es", "Joris Joosten", "Jan Geert Koops"],
-            date: "18 september 2023"
+        "FSC - Logging": {
+            href: "https://commonground.gitlab.io/standards/fsc/logging/draft-fsc-logging-00.html",
+            title: "FSC - Logging",
+            authors: ["Eelco Hotting", "Ronald Koster", "Henk van Maanen", "Niels Dequeker", "Edward van Gelderen", "Pim Gaemers"],
+            date: "8 december 2023"
         },
         "NIST.SP.800-162": {
             href: "https://www.nist.gov/publications/guide-attribute-based-access-control-abac-definition-and-considerations-1",
@@ -162,12 +144,15 @@ var organisationConfig = {
             authors: ["Chung Tong Hu", "David F. Ferraiolo", "David R. Kuhn"],
             date: "February 25, 2019"
         },
-
-        "SAML": {
-            href: "https://docs.oasis-open.org/security/saml/v2.0/saml-core-2.0-os.pdf",
-            title: "Assertions and Protocols for the OASIS Security Assertion Markup Language (SAML) V2.0",
-            authors: ["Scott Cantor", "John Kemp", "Rob Philpott", "Eve Maler"],
-            date: "15 maart 2005"
+        "ISO/IEC 27002:2022": {
+            href: "https://www.iso.org/standard/75652.html",
+            title: "Information security, cybersecurity and privacy protection — Information security controls",
+            date: "2022-02"            
+        },
+        "BIO2": {
+            href: "https://www.bio-overheid.nl/media/cs5ctudu/20250924-baseline-informatiebeveiliging-overheid-2-bio2-v12-def.pdf?csf=1&web=1&e=9JoWOT",
+            title: "Baseline Informatiebeveiliging Overheid 2",
+            date: "24 september 2025"            
         }
     },
 }

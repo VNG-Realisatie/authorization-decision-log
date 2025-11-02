@@ -8,7 +8,7 @@ The Authorization Decision Log defines a standard format for recording decisions
 
 The goal of the standard is to enable recreation of the environment in which historical authorization decisions were made to enable analysis of decisions while preventing unnecessary data duplication.
 
-The inputs for records in the Authorization Decision Log come from the following standard EAM or PxP components as introduced in [[NIST.SP.800-162]] and adopt the information model introduced in [[AuthZEN]].
+The inputs for records in the Authorization Decision Log come from the following standard EAM or PxP components as introduced in [[?NIST.SP.800-162]] and adopt the information model introduced in [[AuthZEN]].
 
 <figure>
 
@@ -17,9 +17,9 @@ The inputs for records in the Authorization Decision Log come from the following
 </figure>
 
 
-In a federated context both consumer (outbound) and provider (inbound) decisions can be logged using this standard. When combined with tracing headers such as [[W3C Trace Context]] introduced by [[Logboek dataverwerkingen]] this enables traceability across complex multi-organizational processing chains.
+In a federated context both consumer (outbound) and provider (inbound) decisions can be logged using this standard. When combined with tracing headers such as [[trace-context]] introduced by [[?Logboek dataverwerkingen]] this enables traceability across complex multi-organizational processing chains.
 
-See the sequence diagram below for an example of such a flow. The [[W3C Trace Context]] will be included in every request and can thus be used as request identifier in the Authorization Decision Log.
+See the sequence diagram below for an example of such a flow. The [[trace-context]] will be included in every request and can thus be used as request identifier in the Authorization Decision Log.
 
 <figure>
 
