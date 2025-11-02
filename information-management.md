@@ -45,51 +45,51 @@ We have identified four levels of detail, in order of least to most detail. Each
 
 ### Decision Request/Response
 
-At the most basic level only the decision request and the decision response are logged. By nature this is very similar to an audit log as required by [[IEC 27002]] and [[BIO]], but extended with the information about the request that was captured by the Policy Enforcement Point (PEP).
+At the most basic level only the decision request and the decision response are logged. By nature this is very similar to an audit log as required by [[?ISO/IEC 27002:2022]] and [[?BIO2]], but extended with the information about the request that was captured by the Policy Enforcement Point (PEP).
 
-At this level of detail log requests contain the following keys, as defined in [[#specification]]:
+At this level of detail log requests contain the following keys, as defined in [[[#specifications]]]:
 
-| Field          | Required  | Reference         |
-|----------------|-----------|-------------------|
-| `trace_id`     | optional  | [[#trace_id]]     |
-| `span_id`      | optional  | [[#span_id]]      |
-| `timestamp`    | required  | [[#timestamp]]    |
-| `request_type` | required  | [[#request_type]] |
-| `request`      | required  | [[#request]]      |
-| `response`     | required  | [[#response]]     |
+| Field          | Required  | Reference                 |
+|----------------|-----------|---------------------------|
+| `trace_id`     | optional  | [[[#spec-trace-context]]] |
+| `span_id`      | optional  | [[[#spec-trace-context]]] |
+| `timestamp`    | required  | [[[#spec-timestamp]]]     |
+| `type`         | required  | [[[#spec-type]]]          | 
+| `request`      | required  | [[[#spec-request]]]       |
+| `response`     | required  | [[[#spec-response]]]      |
 
 ### Decision and Policies
 
 In addition to the request and response, the exact version of the policies that were used to evaluate the request can be programmatically retrieved.  
 
-At this level of detail log requests contain the following keys, as defined in [[#specification]]:
+At this level of detail log requests contain the following keys, as defined in [[[#specifications]]]:
 
-| Field          | Required  | Reference         |
-|----------------|-----------|-------------------|
-| `trace_id`     | optional  | [[#trace_id]]     |
-| `span_id`      | optional  | [[#span_id]]      |
-| `timestamp`    | required  | [[#timestamp]]    |
-| `request_type` | required  | [[#request_type]] |
-| `request`      | required  | [[#request]]      |
-| `response`     | required  | [[#response]]     |
-| `policies`     | required  | [[#policies]]     |
+| Field          | Required  | Reference                 |
+|----------------|-----------|---------------------------|
+| `trace_id`     | optional  | [[[#spec-trace-context]]] |
+| `span_id`      | optional  | [[[#spec-trace-context]]] |
+| `timestamp`    | required  | [[[#spec-timestamp]]]     |
+| `type`         | required  | [[[#spec-type]]]          | 
+| `request`      | required  | [[[#spec-request]]]       |
+| `response`     | required  | [[[#spec-response]]]      |
+| `policies`     | required  | [[[#spec-policies]]]      |
 
 ### All Information Sources
 
 All information used in the evaluation can be programmatically retrieved. This allows full replayability, assuming the engine (PDP) behaves identically or can be manually recreated in the correct state, which is generally achievable.  
 
-At this level of detail log requests contain the following keys, as defined in [[#specification]]:
+At this level of detail log requests contain the following keys, as defined in [[[#specifications]]]:
 
-| Field          | Required  | Reference         |
-|----------------|-----------|-------------------|
-| `trace_id`     | optional  | [[#trace_id]]     |
-| `span_id`      | optional  | [[#span_id]]      |
-| `timestamp`    | required  | [[#timestamp]]    |
-| `request_type` | required  | [[#request_type]] |
-| `request`      | required  | [[#request]]      |
-| `response`     | required  | [[#response]]     |
-| `policies`     | required  | [[#policies]]     |
-| `information`  | required  | [[#information]]  |
+| Field          | Required  | Reference                 |
+|----------------|-----------|---------------------------|
+| `trace_id`     | optional  | [[[#spec-trace-context]]] |
+| `span_id`      | optional  | [[[#spec-trace-context]]] |
+| `timestamp`    | required  | [[[#spec-timestamp]]]     |
+| `type`         | required  | [[[#spec-type]]]          | 
+| `request`      | required  | [[[#spec-request]]]       |
+| `response`     | required  | [[[#spec-response]]]      |
+| `policies`     | required  | [[[#spec-policies]]]      |
+| `information`  | required  | [[[#spec-information]]]   |
 
 ### Full Environment
 
@@ -99,16 +99,16 @@ In addition to all information used in the evaluation, the environment and confi
 In most cases the evaluation engine consists only of the Policy Decision Point. In some cases the Policy Administration Point and Policy Information Point also introduce behaviour which should be captured in the engine field. 
 </p>
 
-At this level of detail log requests contain the following keys, as defined in [[#specification]]:
+At this level of detail log requests contain the following keys, as defined in [[[#specifications]]]:
 
-| Field          | Required  | Reference         |
-|----------------|-----------|-------------------|
-| `trace_id`     | optional  | [[#trace_id]]     |
-| `span_id`      | optional  | [[#span_id]]      |
-| `timestamp`    | required  | [[#timestamp]]    |
-| `request_type` | required  | [[#request_type]] |
-| `request`      | required  | [[#request]]      |
-| `response`     | required  | [[#response]]     |
-| `policies`     | required  | [[#policies]]     |
-| `information`  | required  | [[#information]]  |
-| `engine`       | required  | [[#engine]]       |
+| Field          | Required  | Reference                 |
+|----------------|-----------|---------------------------|
+| `trace_id`     | optional  | [[[#spec-trace-context]]] |
+| `span_id`      | optional  | [[[#spec-trace-context]]] |
+| `timestamp`    | required  | [[[#spec-timestamp]]]     |
+| `type`         | required  | [[[#spec-type]]]          | 
+| `request`      | required  | [[[#spec-request]]]       |
+| `response`     | required  | [[[#spec-response]]]      |
+| `policies`     | required  | [[[#spec-policies]]]      |
+| `information`  | required  | [[[#spec-information]]]   |
+| `engine`       | required  | [[[#spec-engine]]]        |
