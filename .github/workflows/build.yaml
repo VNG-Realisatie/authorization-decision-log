@@ -27,6 +27,9 @@ jobs:
           python3 -m http.server 8000 &
           sleep 5
           npx respec http://localhost:8000/base.html public/index.html --disable-sandbox
+      - name: Copy old versions
+        run: |
+          cp versions/* public/
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
