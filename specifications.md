@@ -76,7 +76,7 @@ The `span_id` field is an 8-byte unique identifier that represents the specific 
 The `transaction_id` field is string that represents the FSC transaction to which this requests belongs. If a W3C trace context is available it should also be included.
 
 <div class="note">
-The Authorization Decision Log and the FSC Log have the same granularity and can thus be combined into a single physical log. This specification ensuret that no fields are defined that conflict with those defined in [FSC - Logging].
+The Authorization Decision Log and the FSC Log have the same granularity and can thus be combined into a single physical log. This specification ensures that no fields are defined that conflict with those defined in [FSC - Logging].
 </div>
 
 #### Generic identifier {#spec-generic-id}
@@ -246,7 +246,7 @@ We can extend the example of the holiday-approval request by adding a reference 
 ```
 </aside>
 
-More complex references can be achieved by using an object as the version identifier. If, for example, the HR application takes part in a federation with predefined policies for different maturity levels. The following non-normative example shows how those policies can be referenced using a semantic version comined with a filter for policies relevant to the current maturity level.
+More complex references can be achieved by using an object as the version identifier. If, for example, the HR application takes part in a federation with predefined policies for different maturity levels. The following non-normative example shows how those policies can be referenced using a semantic version combined with a filter for policies relevant to the current maturity level.
 
 <aside class="example" title="Complex policy source reference">
 
@@ -414,7 +414,7 @@ Non-normative examples include:
 
 #### Examples (non-normative)
 
-In the example below we extend the holiday apporval request example by describe the version of the language used by the PDP and the configuration of the `can-sign-api` PIP. 
+In the example below we extend the holiday approval request example by describe the version of the language used by the PDP and the configuration of the `can-sign-api` PIP.
 
 <aside class="example" title="Log record of denied holiday approval">
 
@@ -523,7 +523,7 @@ In the context of REST APIs developed by the Dutch government the <a href="https
 
 ### Logged sources
 
-For information sources that are logged in an external log, a request identifier is needed to look up the corresponding request in te external log. 
+For information sources that are logged in an external log, a request identifier is needed to look up the corresponding request in the external log.
 
 It is *RECOMMENDED* to use the W3C Trace Context standard as the request identifier. Such a request *SHOULD* have the same `trace_id` as request to the PDP, in which case the source reference can consist of only the value of the `span_id`.
 

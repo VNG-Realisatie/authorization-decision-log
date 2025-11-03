@@ -23,6 +23,13 @@ The storage and management of log data are also subject to various laws and lega
 * **Retention Periods**: Define a clear retention policy for log records. This period should be based on legal obligations and the defined purposes of the log. Data should not be kept longer than is necessary. Data retention may vary within a single log as well.
 * **Accountability to Authorities**: Determine the information requirements of supervisory authorities ("toezichthouders"). The log must be structured to provide them with the necessary data for their oversight role in a timely and effective manner.
 
+## Data Integrity and Non-Repudiation
+
+To be effective for auditing and accountability, the Authorization Decision Log must be trustworthy. This requires guarantees of data integrity and non-repudiation.
+
+* **Data Integrity**: This ensures that log records, once written, cannot be altered or deleted without detection. The integrity of the log is paramount for forensic analysis, internal audits, and providing reliable evidence. Organizations should implement technical measures, such as write-once (WORM) storage, append-only mechanisms, cryptographic hashing, or digital signatures, to protect the log data from tampering.
+* **Non-Repudiation**: This provides proof of the origin and integrity of the data, preventing any party from denying their involvement in an authorization decision. By ensuring non-repudiation (e.g., through strong authentication of logging components and digitally signing log entries), the log can definitively prove what decision was made, what information it was based on, and which component recorded it.
+
 ## Access and Usage Policies
 
 It is essential to define clear policies for authorizing access to the Authorization Decision Log or parts thereof. These decisions to provide or deny access to the log should also be included in the Authorization Decision Log. 
@@ -45,7 +52,11 @@ We have identified four levels of detail, in order of least to most detail. Each
 
 ### Decision Request/Response
 
-At the most basic level only the decision request and the decision response are logged. By nature this is very similar to an audit log as required by [[?ISO/IEC 27002:2022]] and [[?BIO2]], but extended with the information about the request that was captured by the Policy Enforcement Point (PEP).
+At the most basic level only the decision request and the decision response are logged. 
+
+<p class="note" title="Engine boundaries">
+The decision request and response can contain all information required for an audit log, as described by [[?ISO/IEC 27002:2022]] and [[?BIO2]]. If that is the case, the Authorization Decision Log **MAY** be used as an audit log.
+</p>
 
 At this level of detail log requests contain the following keys, as defined in [[[#specifications]]]:
 
