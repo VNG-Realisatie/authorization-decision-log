@@ -7,7 +7,7 @@ This section provides the specification for the protocols and interfaces to be u
 The protocols used between the engine and the log are not prescribed in this standard.
 
 <div class="note">
-Note, by "the protocols" we mean the method of delivering messages between components. This standard does describe the interfaces of the messages themselves, which the components **MUST** comply with, to ensure interoperability between component functionalities. The standard does not prescribe how that information is passed between components, as this depends on the technical/architectural choices made by software developers. This provides the freedom to add the standard to almost any software solution.
+Note, by "the protocols" we mean the method of delivering messages between components. This standard does describe the interfaces of the messages themselves, which the components <b>MUST</b> comply with, to ensure interoperability between component functionalities. The standard does not prescribe how that information is passed between components, as this depends on the technical/architectural choices made by software developers. This provides the freedom to add the standard to almost any software solution.
 </div>
 
 It is **RECOMMENDED** to use the OpenTelemetry Protocol (OTLP) for the interaction between the Application and the log.
@@ -21,7 +21,7 @@ OpenTelemetry is a standard and open-source framework for managing, generating, 
 
 The log **MUST** enforce TLS on connections, in accordance with the standard practice established within the organization.
 
-The log **SHOULD** confirm the successful persistence of each log entry. If a confirmation is not provided, historical decisions may end up not being logged.
+Each decision log entry **SHOULD** be persisted to durable storage before the PDP provides a decision response to the PEP. If persistence of log entries is not confirmed, historical decisions may end up not being logged.
 
 ## Interface
 
@@ -29,12 +29,12 @@ The interface **MUST** have fields that can identify the request.
 
 It is **RECOMMENDED** to use [[trace-context]] to identify requests by implementing the following fields:
 
-| Field          | Type      | Description                                                      |
-|----------------|-----------|------------------------------------------------------------------|
-| `trace_id`     | 16 byte   | Unique identifier of trace that follows data processing          |
-| `span_id`      | 8 byte    | Unique identifier of span within the data processing             |
+| Field            | Type      | Description                                                      |
+|------------------|-----------|------------------------------------------------------------------|
+| `trace_id`       | 16 byte   | Unique identifier of trace that follows data processing          |
+| `span_id`        | 8 byte    | Unique identifier of span within the data processing             |
 
-When requests incorporate [[FSC - Logging]] the following field **SHOULD** be implemented:
+When requests incorporate [[FSC - Logging]], the following field **SHOULD** be implemented:
 
 | Field            | Type    | Description                                                      |
 |------------------|---------|------------------------------------------------------------------|
@@ -42,20 +42,20 @@ When requests incorporate [[FSC - Logging]] the following field **SHOULD** be im
 
 The interface **MUST** implement the following fields describing the request and its response:
 
-| Field          | Type      | Description                                                      |
-|----------------|-----------|------------------------------------------------------------------|
-| `timestamp`    | timestamp | The exact point in time when the authorization decision was made |
-| `type` | string    | The type of request as defined in the [[AuthZen]] standard       |
-| `request`      | object    | Input for the decision in [[AuthZen]] format                     |
-| `response`     | object    | Output of the decision in [[AuthZen]] format                     |
+| Field           | Type      | Description                                                      |
+|-----------------|-----------|------------------------------------------------------------------|
+| `timestamp`     | timestamp | The exact point in time when the authorization decision was made |
+| `type`          | string    | The type of request as defined in the [[AuthZen]] standard       |
+| `request`       | object    | Input for the decision in [[AuthZen]] format                     |
+| `response`      | object    | Output of the decision in [[AuthZen]] format                     |
 
 The interface **MAY** implement the following fields:
 
-| Field          | Type      | Description                                                      |
-|----------------|-----------|------------------------------------------------------------------|
-| `policies`     | object    | Policy sources that affected the decision                        |
-| `information`  | object    | Information sources used in the decision                         |
-| `engine`       | object    | Policy Decision Point configuration and metadata                 |
+| Field           | Type      | Description                                                      |
+|-----------------|-----------|------------------------------------------------------------------|
+| `policies`      | object    | Policy sources that affected the decision                        |
+| `information`   | object    | Information sources used in the decision                         |
+| `configuration` | object    | Policy Decision Point configuration and metadata                 |
 
 Implementations **MAY** include additional fields. Such fields **MUST NOT** alter the semantics of the defined fields and **SHOULD** be ignored by recipients that do not recognize them.
 
@@ -76,7 +76,7 @@ The `span_id` field is an 8-byte unique identifier that represents the specific 
 The `transaction_id` field is string that represents the FSC transaction to which this requests belongs. If a W3C trace context is available it should also be included.
 
 <div class="note">
-The Authorization Decision Log and the FSC Log have the same granularity and can thus be combined into a single physical log. This specification ensures that no fields are defined that conflict with those defined in [FSC - Logging].
+The Authorization Decision Log and the FSC Log have the same granularity and can thus be combined into a single physical log. This specification ensures that no fields are defined that conflict with those defined in [[FSC - Logging]].
 </div>
 
 #### Generic identifier {#spec-generic-id}
@@ -122,7 +122,7 @@ Her browser submits the following request to the API:
 ```http
 POST /users/bob/holiday-requests/446epbc8y7 HTTP/1.1
 Host: hr.example.com
-Authorization: Bearer <alice-oauth-token>
+Authorization: Bearer <alice-auth-token>
 traceparent: 00-28dbeec32e77635cc19bc3204ec56c41-dec5220770f8f4f4-01
 
 {"action":"approve"}
@@ -137,13 +137,13 @@ The application, acting as the PEP, then submits the following HTTP request to t
 POST /access/v1/evaluation HTTP/1.1
 Host: pdp.example.com
 Content-Type: application/json
-Authorization: Bearer <pep-oauth-token>
+Authorization: Bearer <pep-auth-token>
 traceparent: 00-28dbeec32e77635cc19bc3204ec56c41-893e1b2ac52d712f-01
 
 {
 	"subject": {
 		"type": "user",
-		"id": "alice@example.com"
+		"id": "alice"
 	},
 	"action": {
 		"name": "approve"
@@ -152,7 +152,7 @@ traceparent: 00-28dbeec32e77635cc19bc3204ec56c41-893e1b2ac52d712f-01
 		"type": "holiday-request",
 		"id": "446epbc8y7",
 		"properties": {
-			"employee": "bob@example.com"
+			"employee": "bob"
 		}
 	},
 	"context": {
@@ -191,7 +191,7 @@ The following JSON object contains a non-normative example of a log record descr
 	"request": {
 		"subject": {
 			"type": "user",
-			"id": "alice@example.com"
+			"id": "alice"
 		},
 		"action": {
 			"name": "approve"
@@ -200,7 +200,7 @@ The following JSON object contains a non-normative example of a log record descr
 			"type": "holiday-request",
 			"id": "446epbc8y7",
 			"properties": {
-				"employee": "bob@example.com"
+				"employee": "bob"
 			}
 		},
 		"context": {
@@ -274,7 +274,7 @@ The following JSON object contains a non-normative example of a log record descr
 	"request": {
 		"subject": {
 			"type": "user",
-			"id": "alice@example.com"
+			"id": "alice"
 		},
 		"action": {
 			"name": "approve"
@@ -283,7 +283,7 @@ The following JSON object contains a non-normative example of a log record descr
 			"type": "holiday-request",
 			"id": "446epbc8y7",
 			"properties": {
-				"employee": "bob@example.com"
+				"employee": "bob"
 			}
 		},
 		"context": {
@@ -353,7 +353,7 @@ The following JSON object contains a non-normative example of a log record descr
 	"request": {
 		"subject": {
 			"type": "user",
-			"id": "alice@example.com"
+			"id": "alice"
 		},
 		"action": {
 			"name": "approve"
@@ -362,7 +362,7 @@ The following JSON object contains a non-normative example of a log record descr
 			"type": "holiday-request",
 			"id": "446epbc8y7",
 			"properties": {
-				"employee": "bob@example.com"
+				"employee": "bob"
 			}
 		},
 		"context": {
@@ -397,19 +397,17 @@ The following JSON object contains a non-normative example of a log record descr
 In this example the entire response is stored in the log record as it is a small response without sensitive data. In most cases it is recommended to use a reference to the data instead. See [[[#source-references]]] for more information.
 </p>
 
-### Engine {#spec-engine}
+### Configuration Sources {#spec-configuration}
 
-The `engine` field is an object containing the relevant configuration parameters required to recreate the state of the engine that evaluates decisions. 
+The `configuration` field represents the information required to recreate the software configuration that evaluated the original decision. In a PxP architecture this primarily represents the configuration of the Policy Decision Point (PDP), but **MAY** also include configuration of Policy Information Points (PIPs) and Policy Administration Points (PAPs).
 
-In a PxP architecture this primarily represents the configuration of the Policy Decision Point (PDP), but MAY also include configuration of Policy Information Points (PIPs) and Policy Administration Points (PAPs).
-
-This allows for replaying historical decisions using the exact software configuration used in the original decision.
+It is an object in which each key identifies a configuration source. All configuration sources that have affected the decision **SHOULD** be included. The value of this field **SHOULD** either contain the configuration that was used in the access decision or be sufficient to retrieve the configuration.
 
 Non-normative examples include:
-- Type of policy engine
-- Version of the policy engine
-- Identifier or hostname of the engine in case multiple engines are used
-- Configuration of the policy engine
+- Configuration of the policy engine (PDP)
+- Version of the policy language
+- Identifier or hostname of the PDP in case multiple PDPs are used
+- Configuration of Policy Information Points, such as API endpoints.
 - Git hash of an IaaS definition, such as a Terraform repository.
 
 #### Examples (non-normative)
@@ -427,7 +425,7 @@ In the example below we extend the holiday approval request example by describe 
 	"request": {
 		"subject": {
 			"type": "user",
-			"id": "alice@example.com"
+			"id": "alice"
 		},
 		"action": {
 			"name": "approve"
@@ -436,7 +434,7 @@ In the example below we extend the holiday approval request example by describe 
 			"type": "holiday-request",
 			"id": "446epbc8y7",
 			"properties": {
-				"employee": "bob@example.com"
+				"employee": "bob"
 			}
 		},
 		"context": {
@@ -463,13 +461,17 @@ In the example below we extend the holiday approval request example by describe 
 			"can_sign": false
 		}
 	},
-	"engine": {
+	"configuration": {
 		"opa_version": "1.10.0",
-		"can-sign-api": "https://hr.example.com/users/{username}?fields=can_sign"
+		"can-sign-api": "https://hr.example.com/users/{subject.id}?fields=can_sign"
 	}
 }
 ```
 </aside>
+
+<p class="note" title="Source references to reduce data duplication">
+In this example the configuration is stored in the log record itself. To reduce data duplication it is generally recommended to use a reference to the configuration instead. See [[[#source-references]]] for more information.
+</p>
 
 ## Sources and referencing {#source-references}
 
@@ -550,7 +552,7 @@ The following non-normative example shows a log record for a request to find all
 			"type": "holiday-request",
 			"id": "446epbc8y7",
 			"properties": {
-				"employee": "bob@example.com"
+				"employee": "bob"
 			}
 		}
 	},
@@ -558,11 +560,11 @@ The following non-normative example shows a log record for a request to find all
 		"results": [
 			{
 				"type": "user",
-				"id": "carol@example.com"
+				"id": "carol"
 			},
 			{
 				"type": "user",
-				"id": "dan@example.com"
+				"id": "dan"
 			}
 		]
 	},

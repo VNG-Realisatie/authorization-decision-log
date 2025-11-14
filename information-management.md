@@ -55,7 +55,7 @@ We have identified four levels of detail, in order of least to most detail. Each
 At the most basic level only the decision request and the decision response are logged. 
 
 <p class="note" title="Engine boundaries">
-The decision request and response can contain all information required for an audit log, as described by [[?ISO/IEC 27002:2022]] and [[?BIO2]]. If that is the case, the Authorization Decision Log **MAY** be used as an audit log.
+The decision request and response can contain all information required for an audit log, as described by [[?ISO/IEC 27002:2022]] and [[?BIO2]]. If that is the case, the Authorization Decision Log <b>MAY</b> be used as an audit log.
 </p>
 
 At this level of detail log requests contain the following keys, as defined in [[[#specifications]]]:
@@ -104,22 +104,22 @@ At this level of detail log requests contain the following keys, as defined in [
 
 ### Full Environment
 
-In addition to all information used in the evaluation, the environment and configuration of the engine that evaluates the decision can also be accurately recreated. This provides full, guaranteed replayability and maximum accountability. 
+In addition to all information used in the evaluation, the environment and configuration of the system that evaluates the decision can also be accurately recreated. This provides full, guaranteed replayability and maximum accountability. 
 
-<p class="note" title="Engine boundaries">
-In most cases the evaluation engine consists only of the Policy Decision Point. In some cases the Policy Administration Point and Policy Information Point also introduce behaviour which should be captured in the engine field. 
+<p class="note" title="System boundaries">
+The configuration of all components that influence the decision should be included. While this may be limited to the configuration of the PDP, it often also requires configuration of the PIP and sometimes the PAP as well. 
 </p>
 
 At this level of detail log requests contain the following keys, as defined in [[[#specifications]]]:
 
-| Field          | Required  | Reference                 |
-|----------------|-----------|---------------------------|
-| `trace_id`     | optional  | [[[#spec-trace-context]]] |
-| `span_id`      | optional  | [[[#spec-trace-context]]] |
-| `timestamp`    | required  | [[[#spec-timestamp]]]     |
-| `type`         | required  | [[[#spec-type]]]          | 
-| `request`      | required  | [[[#spec-request]]]       |
-| `response`     | required  | [[[#spec-response]]]      |
-| `policies`     | required  | [[[#spec-policies]]]      |
-| `information`  | required  | [[[#spec-information]]]   |
-| `engine`       | required  | [[[#spec-engine]]]        |
+| Field           | Required  | Reference                  |
+|-----------------|-----------|----------------------------|
+| `trace_id`      | optional  | [[[#spec-trace-context]]]  |
+| `span_id`       | optional  | [[[#spec-trace-context]]]  |
+| `timestamp`     | required  | [[[#spec-timestamp]]]      | 
+| `type`          | required  | [[[#spec-type]]]           | 
+| `request`       | required  | [[[#spec-request]]]        |
+| `response`      | required  | [[[#spec-response]]]       |
+| `policies`      | required  | [[[#spec-policies]]]       |
+| `information`   | required  | [[[#spec-information]]]    |
+| `configuration` | required  | [[[#spec-configuration]]] |
