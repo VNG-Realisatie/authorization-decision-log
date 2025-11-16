@@ -521,7 +521,7 @@ ul.index code{color:inherit}
 </section><section id="components"><div class="header-wrapper"><h3 id="x2-2-components"><bdi class="secno">2.2 </bdi>Components</h3><a class="self-link" href="#components" aria-label="Permalink for Section 2.2"></a></div>
 <p>The standard EAM architecture has the following conceptual components. These can be deployed as standalone applications, combined in various configurations, or even implemented within a single monolithic application.</p>
 <section id="authorization-decision-log"><div class="header-wrapper"><h4 id="x2-2-1-authorization-decision-log"><bdi class="secno">2.2.1 </bdi>Authorization Decision Log</h4><a class="self-link" href="#authorization-decision-log" aria-label="Permalink for Section 2.2.1"></a></div>
-<p>The Authorization Decision Log contains all information that was used in the authorization decision. Using the Authorization Decision Log it <em class="rfc2119">SHOULD</em> be possible to accurately recreate environmental factors that affected historical authorization decisions.</p>
+<p>The Authorization Decision Log contains all information that was used in the authorization decision. Using the Authorization Decision Log it <strong><em class="rfc2119">SHOULD</em></strong> be possible to accurately recreate environmental factors that affected historical authorization decisions.</p>
 </section><section id="policy-enforcement-point-pep"><div class="header-wrapper"><h4 id="x2-2-2-policy-enforcement-point-pep"><bdi class="secno">2.2.2 </bdi>Policy Enforcement Point (PEP)</h4><a class="self-link" href="#policy-enforcement-point-pep" aria-label="Permalink for Section 2.2.2"></a></div>
 <p>A Policy Enforcement Point (PEP) intercepts a user's request, sends it to the Policy Decision Point (PDP) for evaluation, and then enforces the resulting "permit" or "deny" decision. A PEP is typically implemented as an API gateway or as a component within the application itself.</p>
 </section><section id="policy-administration-point-pap"><div class="header-wrapper"><h4 id="x2-2-3-policy-administration-point-pap"><bdi class="secno">2.2.3 </bdi>Policy Administration Point (PAP)</h4><a class="self-link" href="#policy-administration-point-pap" aria-label="Permalink for Section 2.2.3"></a></div>
@@ -537,7 +537,7 @@ It is important to keep in mind that these are architectural components. They ca
 </section></section><section id="scope"><div class="header-wrapper"><h3 id="x2-3-scope"><bdi class="secno">2.3 </bdi>Scope</h3><a class="self-link" href="#scope" aria-label="Permalink for Section 2.3"></a></div>
 <p>This section delineates the scope of the standard.</p>
 <section id="no-specification-for-the-management-of-logs"><div class="header-wrapper"><h4 id="x2-3-1-no-specification-for-the-management-of-logs"><bdi class="secno">2.3.1 </bdi>No specification for the management of logs</h4><a class="self-link" href="#no-specification-for-the-management-of-logs" aria-label="Permalink for Section 2.3.1"></a></div>
-<p>The specification defines an interface for persisting log entries. This is the component that <em class="rfc2119">MUST</em> be consistent across organizations to ensure interoperability.</p>
+<p>The specification defines an interface for persisting log entries. This is the component that <strong><em class="rfc2119">MUST</em></strong> be consistent across organizations to ensure interoperability.</p>
 <p>The management of a log, however, is left to the discretion of individual implementations. Consequently, the specification does NOT define behavior or interfaces for:</p>
 <ul>
 <li>deleting or modifying log entries</li>
@@ -547,7 +547,7 @@ It is important to keep in mind that these are architectural components. They ca
 <li>ensuring integrity and non-repudiation</li>
 <li>maintaining time-synchronization</li>
 </ul>
-<p>See <a href="#information-management" data-matched-text="[[[#information-management]]]" class="sec-ref"><bdi class="secno">5. </bdi>Information Management and Compliance</a> for an overview of various aspects which <em class="rfc2119">MAY</em> be required for legal and regulatory compliance.</p>
+<p>See <a href="#information-management" data-matched-text="[[[#information-management]]]" class="sec-ref"><bdi class="secno">5. </bdi>Information Management and Compliance</a> for an overview of various aspects which <strong><em class="rfc2119">MAY</em></strong> be required for legal and regulatory compliance.</p>
 </section></section><section id="flows"><div class="header-wrapper"><h3 id="x2-4-flows"><bdi class="secno">2.4 </bdi>Flows</h3><a class="self-link" href="#flows" aria-label="Permalink for Section 2.4"></a></div>
 <section id="writing-a-log-record-after-an-authorization-decision"><div class="header-wrapper"><h4 id="x2-4-1-writing-a-log-record-after-an-authorization-decision"><bdi class="secno">2.4.1 </bdi>Writing a log record after an authorization decision</h4><a class="self-link" href="#writing-a-log-record-after-an-authorization-decision" aria-label="Permalink for Section 2.4.1"></a></div>
 <figure id="fig-writing-a-log-record-after-an-authorization-decision">
@@ -1037,8 +1037,9 @@ In this example the entire response is stored in the log record as it is a small
 In this example the configuration is stored in the log record itself. To reduce data duplication it is generally recommended to use a reference to the configuration instead. See <a href="#source-references" data-matched-text="[[[#source-references]]]" class="sec-ref"><bdi class="secno">3.4 </bdi>Sources and referencing</a> for more information.
 </p></div>
 
-</section></section></section><section id="sources-and-referencing"><div class="header-wrapper"><h3 id="source-references"><bdi class="secno">3.4 </bdi>Sources and referencing</h3><a class="self-link" href="#source-references" aria-label="Permalink for Section 3.4"></a></div><p>Policy and information sources <em class="rfc2119">MAY</em> be included in the log directly, but this is undesirable in most cases as it introduces duplication, increases the size of the log, and increases security requirements for the log by including sensitive data.</p>
-<p>To address this we describe several methods of referencing sources from the log below. </p>
+</section></section></section><section id="sources-and-referencing"><div class="header-wrapper"><h3 id="source-references"><bdi class="secno">3.4 </bdi>Sources and referencing</h3><a class="self-link" href="#source-references" aria-label="Permalink for Section 3.4"></a></div><p>Policy, information and configuration sources <strong><em class="rfc2119">MAY</em></strong> be included in the log directly.</p>
+<p>This is generally undesirable however as it introduces duplication, increases the size of the log and increase security requirements for the log by including sensitive data.</p>
+<p>To address this we describe several methods of referencing sources from the log below.</p>
 <section id="versioned-sources"><div class="header-wrapper"><h4 id="x3-4-1-versioned-sources"><bdi class="secno">3.4.1 </bdi>Versioned sources</h4><a class="self-link" href="#versioned-sources" aria-label="Permalink for Section 3.4.1"></a></div>
 <p>Some information sources offer the ability to 'time-travel' by providing a version at which to query. In such cases, the data itself may be omitted and the version can be stored instead.  </p>
 <p>The version identifier can be a simple value, such as a string or number, or a complex object, such as an array or object containing multiple version identifiers.</p>
