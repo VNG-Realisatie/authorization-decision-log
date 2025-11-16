@@ -36,7 +36,7 @@ The standard EAM architecture has the following conceptual components. These can
 
 ### Authorization Decision Log
 
-The Authorization Decision Log contains all information that was used in the authorization decision. Using the Authorization Decision Log it **SHOULD** be possible to accurately recreate environmental factors that affected historical authorization decisions.
+The Authorization Decision Log contains all information that was used in the authorization decision. Using the Authorization Decision Log it *SHOULD* be possible to accurately recreate environmental factors that affected historical authorization decisions.
 
 ### Policy Enforcement Point (PEP)
 
@@ -64,7 +64,7 @@ This section delineates the scope of the standard.
 
 ### No specification for the management of logs
 
-The specification defines an interface for persisting log entries. This is the component that **MUST** be consistent across organizations to ensure interoperability.
+The specification defines an interface for persisting log entries. This is the component that *MUST* be consistent across organizations to ensure interoperability.
 
 The management of a log, however, is left to the discretion of individual implementations. Consequently, the specification does NOT define behavior or interfaces for:
 - deleting or modifying log entries
@@ -74,7 +74,7 @@ The management of a log, however, is left to the discretion of individual implem
 - ensuring integrity and non-repudiation
 - maintaining time-synchronization
 
-See [[[#information-management]]] for an overview of various aspects which **MAY** be required for legal and regulatory compliance.
+See [[[#information-management]]] for an overview of various aspects which *MAY* be required for legal and regulatory compliance.
 
 ## Flows
 
@@ -88,4 +88,4 @@ See [[[#information-management]]] for an overview of various aspects which **MAY
 
 To provide accountability for historical authorization decisions it must be possible to recreate the information and environment that affected the decision. The PDP provides the information required for this to the Authorization Decision Log in the form of a Log Record, as defined in the specification below. 
 
-The PDP **SHOULD** ensure that a Log Record has been persisted to durable storage before providing the Policy Enforcement Point with the decision. The PDP then flushes this durable storage to the Authorization Decision Log, ensuring that the log record has been persisted and can be used to provide accountability when needed.
+The PDP *SHOULD* ensure that a Log Record has been persisted to durable storage before providing the Policy Enforcement Point with the decision. The PDP then flushes this durable storage to the Authorization Decision Log, ensuring that the log record has been persisted and can be used to provide accountability when needed.

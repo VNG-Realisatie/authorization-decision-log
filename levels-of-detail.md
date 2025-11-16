@@ -15,7 +15,7 @@ We have identified four levels of detail, in order from least to most detail. Ea
 At the most basic level only the decision request and the decision response are logged.
 
 <p class="note" title="Engine boundaries">
-The decision request and response <b>MAY</b> contain all information required for an audit log, as described by [[?ISO/IEC 27002:2022]] and [[?BIO2]]. If that is the case, and all auditable actions are decided on by the PDP, the Authorization Decision Log <b>MAY</b> be used as an audit log.
+The decision request and response <i>MAY</i> contain all information required for an audit log, as described by [[?ISO/IEC 27002:2022]] and [[?BIO2]]. If that is the case, and all auditable actions are decided on by the PDP, the Authorization Decision Log <i>MAY</i> be used as an audit log.
 </p>
 
 At this level of detail log requests contain the following keys, as defined in [[[#specifications]]]:
