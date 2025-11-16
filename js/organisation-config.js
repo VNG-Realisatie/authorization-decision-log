@@ -144,6 +144,11 @@ var organisationConfig = {
             authors: ["Chung Tong Hu", "David F. Ferraiolo", "David R. Kuhn"],
             date: "February 25, 2019"
         },
+        "ISO/IEC 27001:2022": {
+            href: "https://www.iso.org/standard/27001.html",
+            title: "Information security, cybersecurity and privacy protection — Information security management systems — Requirements",
+            date: "2022-10"
+        },
         "ISO/IEC 27002:2022": {
             href: "https://www.iso.org/standard/75652.html",
             title: "Information security, cybersecurity and privacy protection — Information security controls",

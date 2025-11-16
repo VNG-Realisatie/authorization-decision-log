@@ -7,7 +7,7 @@ This section provides the specification for the protocols and interfaces to be u
 The protocols used between the engine and the log are not prescribed in this standard.
 
 <div class="note">
-Note, by "the protocols" we mean the method of delivering messages between components. This standard does describe the interfaces of the messages themselves, which the components <b>MUST</b> comply with, to ensure interoperability between component functionalities. The standard does not prescribe how that information is passed between components, as this depends on the technical/architectural choices made by software developers. This provides the freedom to add the standard to almost any software solution.
+Note, by "the protocols" we mean the method of delivering messages between components. This standard does describe the interfaces of the messages themselves. The components <b>MUST</b> comply with the interfaces to ensure interoperability between component functionalities. The standard does not prescribe how that information is passed between components, as this depends on the technical/architectural choices made by software developers. This provides the freedom to add the standard to almost any software solution.
 </div>
 
 It is **RECOMMENDED** to use the OpenTelemetry Protocol (OTLP) for the interaction between the Application and the log.
@@ -19,9 +19,11 @@ OpenTelemetry is a standard and open-source framework for managing, generating, 
 
 ## Behavior
 
+Each decision log entry **SHOULD** be persisted to durable storage before the PDP provides a decision response to the PEP. If persistence of log entries is not confirmed, historical decisions may end up not being logged.
+
 The log **MUST** enforce TLS on connections, in accordance with the standard practice established within the organization.
 
-Each decision log entry **SHOULD** be persisted to durable storage before the PDP provides a decision response to the PEP. If persistence of log entries is not confirmed, historical decisions may end up not being logged.
+See [[[#information-management]]] for an overview of additional behavior that **MAY** be required for legal and regulatory compliance.
 
 ## Interface
 
@@ -29,16 +31,16 @@ The interface **MUST** have fields that can identify the request.
 
 It is **RECOMMENDED** to use [[trace-context]] to identify requests by implementing the following fields:
 
-| Field            | Type      | Description                                                      |
-|------------------|-----------|------------------------------------------------------------------|
-| `trace_id`       | 16 byte   | Unique identifier of trace that follows data processing          |
-| `span_id`        | 8 byte    | Unique identifier of span within the data processing             |
+| Field            | Type      | Description                                                     |
+|------------------|-----------|-----------------------------------------------------------------|
+| `trace_id`       | 16 byte   | Unique identifier of trace that follows data processing         |
+| `span_id`        | 8 byte    | Unique identifier of span within the data processing            |
 
 When requests incorporate [[FSC - Logging]], the following field **SHOULD** be implemented:
 
-| Field            | Type    | Description                                                      |
-|------------------|---------|------------------------------------------------------------------|
-| `transaction_id` | string  | Unique identifier of FSC transaction id of this requests         |
+| Field            | Type    | Description                                                       |
+|------------------|---------|-------------------------------------------------------------------|
+| `transaction_id` | string  | Unique identifier of FSC transaction id of this request           |
 
 The interface **MUST** implement the following fields describing the request and its response:
 
@@ -63,7 +65,7 @@ Implementations **MAY** include additional fields. Such fields **MUST NOT** alte
 
 Each log record should be uniquely identified. Using these identifiers the log entry can be related to other logs and vice-versa.
 
-The specification supports a number of different identifiers: a W3C Trace Context to integrate with [[Logboek dataverwerkingen]], a transaction id to integrate with [[FSC - Logging]] and a generic ID for when neither of the other identifiers are available.
+The specification supports a number of different identifiers: a W3C Trace Context to integrate with [[Logboek dataverwerkingen]], a transaction id to integrate with [[FSC - Logging]], and a generic ID for when neither of the other identifiers are available.
 
 #### W3C Trace Context {#spec-trace-context}
 
@@ -73,7 +75,7 @@ The `span_id` field is an 8-byte unique identifier that represents the specific 
 
 #### FSC Transaction ID {#spec-fsc-transaction-id}
 
-The `transaction_id` field is string that represents the FSC transaction to which this requests belongs. If a W3C trace context is available it should also be included.
+The `transaction_id` field is a string value that represents the FSC transaction to which this request belongs. If a W3C trace context is available it should also be included.
 
 <div class="note">
 The Authorization Decision Log and the FSC Log have the same granularity and can thus be combined into a single physical log. This specification ensures that no fields are defined that conflict with those defined in [[FSC - Logging]].
@@ -81,7 +83,7 @@ The Authorization Decision Log and the FSC Log have the same granularity and can
 
 #### Generic identifier {#spec-generic-id}
 
-If none of the other identifiers can be supported, a generic fall-back identifier can be included in the `id` field. 
+If none of the other identifiers can be supported, a generic fallback identifier can be included in the `id` field. 
 
 This can be any value, simple or complex, which can contain any kind of request identifier.
 
@@ -104,7 +106,7 @@ For example, a request to the URL defined by the `search_subject_endpoint` in th
 #### Request {#spec-request}
 The `request` field is an object that represents the input to the decision. This field **MUST** be in [[AuthZen]] format as defined for the given request type. 
 
-Portions of the request **MAY** be omitted for privacy reasons. If information is omitted, this omission **SHOULD** be documented or indicated in the log record. If the omitted information was used by the Policy Decision Point then full accountability can no longer be provided. 
+Portions of the request **MAY** be omitted for privacy reasons. If information is omitted, this omission **SHOULD** be documented or indicated in the log record. If the omitted information was used by the Policy Decision Point, then full accountability can no longer be provided.
 
 #### Response {#spec-response}
 The `response` field is an object that represents the output of the decision. This field **MUST** be in [[AuthZen]] format as defined for the given request type. 
@@ -113,7 +115,7 @@ Portions of the response **MAY** be omitted for privacy reasons. If information 
 
 #### Examples (non-normative)
 
-In the following example a manager called Alice attempts to approve a holiday request for a team member called Bob, but the request is denied because she is does not have signing authority. 
+In the following example a manager called Alice attempts to approve a holiday request for a team member called Bob, but the request is denied because she does not have signing authority. 
 
 Her browser submits the following request to the API:
 
@@ -221,7 +223,7 @@ The following JSON object contains a non-normative example of a log record descr
 
 ### Policy Sources {#spec-policies}
 
-The `policies` field represents a versioned reference to the policies that the PDP used to evaluate the request. In a PxP architecture this represents the information that would come from the Policy Administration Point (PAP).
+The `policies` field represents a versioned reference to the policies that the PDP used to evaluate the request. In a PxP architecture, this represents the information that would come from the Policy Administration Point (PAP).
 
 A PDP can have one or more sources of policies which can be individually versioned. To accommodate that the `policies` field is an object in which each key identifies a specific, versioned, policy source. 
 
@@ -312,7 +314,7 @@ The following JSON object contains a non-normative example of a log record descr
 
 ### Information Sources {#spec-information}
 
-The `information` field represents all the supporting information used in the evaluation of the access decision. In a PxP architecture this field represents the information that would comes from Policy Information Points (PIPs).
+The `information` field represents all the supporting information used in the evaluation of the access decision. In a PxP architecture, this field represents the information that would come from Policy Information Points (PIPs).
 
 It is an object in which each key identifies an information source. All information sources that have affected the decision **SHOULD** be included. The value of this field **SHOULD** either contain the information that was used in the access decision or be sufficient to retrieve the information. 
 
@@ -399,7 +401,7 @@ In this example the entire response is stored in the log record as it is a small
 
 ### Configuration Sources {#spec-configuration}
 
-The `configuration` field represents the information required to recreate the software configuration that evaluated the original decision. In a PxP architecture this primarily represents the configuration of the Policy Decision Point (PDP), but **MAY** also include configuration of Policy Information Points (PIPs) and Policy Administration Points (PAPs).
+The `configuration` field represents the information required to recreate the software configuration that evaluated the original decision. In a PxP architecture, this primarily represents the configuration of the Policy Decision Point (PDP), but **MAY** also include configuration of Policy Information Points (PIPs) and Policy Administration Points (PAPs).
 
 It is an object in which each key identifies a configuration source. All configuration sources that have affected the decision **SHOULD** be included. The value of this field **SHOULD** either contain the configuration that was used in the access decision or be sufficient to retrieve the configuration.
 
@@ -412,7 +414,7 @@ Non-normative examples include:
 
 #### Examples (non-normative)
 
-In the example below we extend the holiday approval request example by describe the version of the language used by the PDP and the configuration of the `can-sign-api` PIP.
+In the example below we extend the holiday approval request example by describing the version of the language used by the PDP and the configuration of the `can-sign-api` PIP.
 
 <aside class="example" title="Log record of denied holiday approval">
 
@@ -475,13 +477,13 @@ In this example the configuration is stored in the log record itself. To reduce 
 
 ## Sources and referencing {#source-references}
 
-While policy and information sources MAY be included in the log directly, this is undesirable in most cases as it introduces duplication, increases the size of the log and increase security requirements for the log by including sensitive data.
+Policy and information sources MAY be included in the log directly, but this is undesirable in most cases as it introduces duplication, increases the size of the log, and increases security requirements for the log by including sensitive data.
 
 To address this we describe several methods of referencing sources from the log below. 
 
 ### Versioned sources
 
-In case the source of information offers the ability to 'time-travel' by providing a version at which to query then the data itself may be omitted.  
+Some information sources offer the ability to 'time-travel' by providing a version at which to query. In such cases, the data itself may be omitted and the version can be stored instead.  
 
 The version identifier can be a simple value, such as a string or number, or a complex object, such as an array or object containing multiple version identifiers.
 
@@ -513,10 +515,10 @@ In case the source of information offers the ability to 'time-travel' by providi
 
 It is **RECOMMENDED** to use the timestamp defined in the `time` field in the `context` of the `request` as the base time. In that case the information source **MAY** be omitted fully. 
 
-If a different timestamp is used then it **SHOULD** be included in [[RFC3339]] format.
+If a different timestamp is used, then it **SHOULD** be included in [[RFC3339]] format.
 
 <p class="note" title="Inter-system clock inconsistencies">
-When system clocks are not aligned properly, a system may be asked to provide information for a time-stamp that lies in the future. This can be mitigated by requesting the policies of a few seconds or minutes ago at the expense of reducing the speed with which policy changes can be deployed.
+When system clocks are not aligned properly, a system may be asked to provide information for a timestamp that lies in the future. This can be mitigated by requesting the policies of a few seconds or minutes ago at the expense of reducing the speed with which policy changes can be deployed.
 </p>
 
 <p class="note" title="Usage of REST API Design Rules">
@@ -527,7 +529,7 @@ In the context of REST APIs developed by the Dutch government the <a href="https
 
 For information sources that are logged in an external log, a request identifier is needed to look up the corresponding request in the external log.
 
-It is *RECOMMENDED* to use the W3C Trace Context standard as the request identifier. Such a request *SHOULD* have the same `trace_id` as request to the PDP, in which case the source reference can consist of only the value of the `span_id`.
+It is *RECOMMENDED* to use the W3C Trace Context standard as the request identifier. Such a request *SHOULD* have the same `trace_id` as the request to the PDP, in which case the source reference can consist of only the value of the `span_id`.
 
 It is *RECOMMENDED* to log requests in the [[WARC]] format as it includes all request and response headers that may be used in the authorization decision.
 
@@ -585,7 +587,7 @@ Which would result in the following WARC entries logging the REST API call to th
 ```warc
 WARC/1.1
 WARC-Type: request
-WARC-Date: 2025-09-11T13:55:01Z
+WARC-Date: 2025-09-07T10:15:31Z
 WARC-Record-ID: <urn:uuid:48bafbce-8d2a-45c1-9d7a-1a851c36e1c8>
 Content-Type: application/http; msgtype=request
 Content-Length: 142
@@ -596,7 +598,7 @@ traceparent: 00-28dbeec32e77635cc19bc3204ec56c41-45deb36022f53afa-01
 
 WARC/1.1
 WARC-Type: response
-WARC-Date: 2025-09-11T13:55:01Z
+WARC-Date: 2025-09-07T10:15:32Z
 WARC-Record-ID: <urn:uuid:4a381180-21a7-4712-8706-5b321c17e3f8>
 WARC-Concurrent-To: <urn:uuid:48bafbce-8d2a-45c1-9d7a-1a851c36e1c8>
 Content-Type: application/http; msgtype=response
@@ -611,7 +613,7 @@ Content-Length: 107
 		"can_sign": false
 	},
 	"carol": {
-		"can_sign": true,
+		"can_sign": true
 	},
 	"dan": {
 		"can_sign": true

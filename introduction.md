@@ -2,7 +2,9 @@
 
 The Authorization Decision Log standard defines a standard method for logging authorization decisions. The standard builds on the information models defined by [[AuthZen]] to log decisions. 
 
-Additionally, it offers a structure for recording environmental factors that affected the evaluation decision. These are separated into active policies, additional information sources and configuration of the evaluation engine as per the architectural components introduced by [[?NIST.SP.800-162]], also known as the "PxP" architecture.
+It augments this with a structure for recording environmental factors that affected the evaluation decision. These are separated into active policies, additional information sources and configuration of the evaluation engine as per the architectural components introduced by [[?NIST.SP.800-162]], also known as the "PxP" architecture.
+
+Additionally, it includes a non-normative outline introducing the concerns, principles and requirements for developing and maintaining such a log in concordance with legislation.
 
 ## Purpose of this standard
 

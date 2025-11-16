@@ -3,12 +3,14 @@ sequenceDiagram
     participant PAP
     participant PIP
     participant PDP
-    participant Decision Log
+    participant Queue as Durable<br/>Queue
+    participant ADL as Decision<br/>Log
     PAP->>PDP: Policies
     PIP->>PDP: Static information
-    PEP->>PDP: Access Evaluation Request
+    PEP->>+PDP: Access Evaluation Request
     PDP->>+PIP: Dynamic information
-    PIP-->>-PDP: ack
-    PDP->>+Decision Log: Log Record
-    Decision Log-->>-PDP: ack
-    PDP->>PEP: Decision
+    PIP-->>-PDP: Response
+    PDP->>PDP: Decide
+    PDP->>Queue: Idempotent write<br/>of Log Record
+    PDP->>-PEP: Decision
+    Queue-)ADL: Flush to log

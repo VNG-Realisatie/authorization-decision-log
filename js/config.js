@@ -16,6 +16,7 @@ let respecConfig = {
     "introduction": "introduction",
     "architecture": "architecture",
     "specifications": "specifications",
+    "levels-of-detail": "levels-of-detail",
     "information-management": "information-management"
   },
   editors:
