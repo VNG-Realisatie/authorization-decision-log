@@ -477,9 +477,11 @@ In this example the configuration is stored in the log record itself. To reduce 
 
 ## Sources and referencing {#source-references}
 
-Policy and information sources MAY be included in the log directly, but this is undesirable in most cases as it introduces duplication, increases the size of the log, and increases security requirements for the log by including sensitive data.
+Policy, information and configuration sources **MAY** be included in the log directly.
 
-To address this we describe several methods of referencing sources from the log below. 
+This is generally undesirable however as it introduces duplication, increases the size of the log and increase security requirements for the log by including sensitive data.
+
+To address this we describe several methods of referencing sources from the log below.
 
 ### Versioned sources
 
